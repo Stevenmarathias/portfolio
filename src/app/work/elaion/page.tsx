@@ -11,7 +11,6 @@ export default function Page() {
   return (
     <CaseLayout
       slug="elaion"
-      eyebrow="Case study 04 · Marketing analytics"
       title="Elaion Olive Oil"
       dek="Every bottle on the shelf says extra virgin. My family's oil has a lab report that proves it. The job was turning that report into something a shopper can actually read."
       meta={[

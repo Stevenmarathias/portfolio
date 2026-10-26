@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Arrow from "@/components/Arrow";
 
 export const cases = [
   { slug: "catch-radius-pressure", title: "Catch Radius Pressure" },
@@ -9,7 +10,6 @@ export const cases = [
 
 type Props = {
   slug: string;
-  eyebrow: string;
   title: string;
   dek: string;
   meta: [string, string][];
@@ -17,22 +17,21 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function CaseLayout({ slug, eyebrow, title, dek, meta, links, children }: Props) {
+export default function CaseLayout({ slug, title, dek, meta, links, children }: Props) {
   const i = cases.findIndex((c) => c.slug === slug);
   const next = cases[(i + 1) % cases.length];
   return (
     <main>
       <header className="case-hero">
         <div className="wrap">
-          <Link className="back" href="/#work">← All work</Link>
-          <p className="eyebrow">{eyebrow}</p>
+          <Link className="back" href="/#work"><Arrow dir="left" /> All work</Link>
           <h1>{title}</h1>
           <p className="dek">{dek}</p>
           {links && (
             <div className="ctas" style={{ marginBottom: 40 }}>
               {links.map((l, j) => (
                 <a key={l.href} className={j === 0 ? "btn primary" : "btn"} href={l.href} target="_blank" rel="noopener">
-                  {l.label} ↗
+                  {l.label} <Arrow dir="out" />
                 </a>
               ))}
             </div>
@@ -47,10 +46,10 @@ export default function CaseLayout({ slug, eyebrow, title, dek, meta, links, chi
       <div className="wrap case-body">{children}</div>
       <div className="wrap">
         <div className="next-case">
-          <Link className="back" href="/#work" style={{ margin: 0 }}>← All work</Link>
+          <Link className="back" href="/#work" style={{ margin: 0 }}><Arrow dir="left" /> All work</Link>
           <Link className="nx" href={`/work/${next.slug}`}>
             <span>Next case study</span>
-            <strong>{next.title} →</strong>
+            <strong>{next.title} <Arrow /></strong>
           </Link>
         </div>
       </div>
@@ -58,10 +57,10 @@ export default function CaseLayout({ slug, eyebrow, title, dek, meta, links, chi
   );
 }
 
-export function Section({ n, title, children }: { n: string; title: string; children: React.ReactNode }) {
+export function Section({ title, children }: { n?: string; title: string; children: React.ReactNode }) {
   return (
-    <section className="case-section" data-reveal>
-      <h2><span className="num">{n}</span>{title}</h2>
+    <section className="case-section">
+      <h2>{title}</h2>
       <div className="prose">{children}</div>
     </section>
   );

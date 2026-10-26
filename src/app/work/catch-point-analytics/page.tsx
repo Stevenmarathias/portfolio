@@ -11,7 +11,6 @@ export default function Page() {
   return (
     <CaseLayout
       slug="catch-point-analytics"
-      eyebrow="Case study 02 · Product and data engineering"
       title="Catch Point Analytics"
       dek="Research nobody can click on doesn't change how anyone watches football. So I built a public stats site around Catch Radius Pressure, covering every game from 1999 to 2025."
       meta={[

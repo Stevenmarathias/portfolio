@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Arrow from "@/components/Arrow";
 
 const WORDS = ["box scores", "stat sheets", "highlight reels"];
 
@@ -73,24 +74,9 @@ export default function Hero() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let W = 0, H = 0, dpr = 1;
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = rect.width;
-      H = rect.height;
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    resize();
-
-    const PLAY = 3400, HOLD = 1500;
-    let playNo = 1;
-    let play = makePlay(7);
-    let t0 = performance.now();
-    let raf = 0;
-    let running = true;
-
+    const fontVar = (name: string, fb: string) =>
+      getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fb;
+    let monoFont = fontVar("--font-mono", "monospace");
     const field = () => {
       const narrow = W < 760;
       const x0 = narrow ? W * 0.04 : W * 0.4;
@@ -102,14 +88,16 @@ export default function Hero() {
       return { x0, x1, y0, y1, u, yards };
     };
 
-    const draw = (now: number) => {
+    // The field and lighting never change between frames, so paint them once per resize.
+    const layer = document.createElement("canvas");
+    const paintStatic = () => {
+      layer.width = canvas.width;
+      layer.height = canvas.height;
+      const lctx = layer.getContext("2d");
+      if (!lctx) return;
+      lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const ctx = lctx;
       const f = field();
-      const P = (v: V) => ({ x: f.x0 + v.x * f.u, y: f.y0 + (v.y / 53) * (f.y1 - f.y0) });
-      const el = now - t0;
-      const t = Math.min(1, el / PLAY);
-
-      ctx.clearRect(0, 0, W, H);
-
       // floodlights
       const g1 = ctx.createRadialGradient(W * 0.86, -H * 0.1, 0, W * 0.86, -H * 0.1, H * 1.1);
       g1.addColorStop(0, "rgba(255,214,140,0.16)");
@@ -144,11 +132,42 @@ export default function Hero() {
         }
       }
       ctx.fillStyle = "rgba(238,242,247,0.06)";
-      ctx.font = `800 ${Math.round(f.u * 2.6)}px "Big Shoulders Display", Impact, sans-serif`;
+      ctx.font = `800 ${Math.round(f.u * 2.6)}px ${fontVar("--font-display", "sans-serif")}`;
       ctx.textAlign = "center";
       [10, 20, 30].forEach((yd, i) => {
         ctx.fillText(["3 0", "4 0", "5 0"][i], f.x0 + yd * f.u, f.y1 - f.u * 0.6);
       });
+
+    };
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width;
+      H = rect.height;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      paintStatic();
+    };
+
+    resize();
+
+    const PLAY = 3400, HOLD = 1500;
+    let playNo = 1;
+    let play = makePlay(7);
+    let t0 = performance.now();
+    let raf = 0;
+    let running = true;
+
+    const draw = (now: number) => {
+      const f = field();
+      const P = (v: V) => ({ x: f.x0 + v.x * f.u, y: f.y0 + (v.y / 53) * (f.y1 - f.y0) });
+      const el = now - t0;
+      const t = Math.min(1, el / PLAY);
+
+      ctx.clearRect(0, 0, W, H);
+
+      ctx.drawImage(layer, 0, 0, W, H);
 
       // positions
       const wrT = ease(t);
@@ -261,7 +280,7 @@ export default function Hero() {
       }
 
       // label
-      ctx.font = `500 ${W < 760 ? 11 : 12}px "IBM Plex Mono", monospace`;
+      ctx.font = `500 ${W < 760 ? 11 : 12}px ${monoFont}`;
       ctx.textAlign = "left";
       ctx.fillStyle = "rgba(238,242,247,0.9)";
       ctx.fillText(`CRP ${crp.toFixed(2)}`, wP.x + R + 8, wP.y - 4);
@@ -312,8 +331,12 @@ export default function Hero() {
     });
     io.observe(canvas);
 
-    // redraw once fonts arrive so field numbers use the display face
-    document.fonts?.ready.then(() => reduce && draw(t0 + PLAY));
+    // repaint the field once fonts arrive so yard numbers use the display face
+    document.fonts?.ready.then(() => {
+      monoFont = fontVar("--font-mono", "monospace");
+      paintStatic();
+      if (reduce) draw(t0 + PLAY);
+    });
 
     return () => {
       running = false;
@@ -328,10 +351,6 @@ export default function Hero() {
       <canvas ref={canvasRef} aria-hidden="true" />
       <div className="hero-scrim" aria-hidden="true" />
       <div className="wrap hero-inner">
-        <p className="kicker">
-          <span className="live" />
-          Boston, MA · MSBA, Boston University · Open to work Jan 2027
-        </p>
         <h1>
           I build metrics for the moments{" "}
           <span className={out ? "flip out" : "flip"} aria-live="off">
@@ -346,12 +365,16 @@ export default function Hero() {
         </p>
         <div className="ctas">
           <a className="btn primary" href="#work">
-            See the work ↓
+            See the work <Arrow dir="down" />
           </a>
           <a className="btn" href="/Steven_Marathias_Resume.pdf" target="_blank" rel="noopener">
-            Résumé ↗
+            Résumé <Arrow dir="out" />
           </a>
         </div>
+        <p className="status">
+          <span className="live" aria-hidden="true" />
+          Open to analyst roles from January 2027 · Boston or remote
+        </p>
       </div>
       <div className="hero-readout" ref={readoutRef} aria-hidden="true">
         Simulated play 1

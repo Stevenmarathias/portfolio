@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { coursework } from "@/lib/coursework";
+import Arrow from "@/components/Arrow";
 
 export default function Coursework() {
   const [active, setActive] = useState(coursework.findIndex((c) => c.title.startsWith("Alone")));
@@ -56,14 +57,14 @@ export default function Coursework() {
             }}
           >
             <span className="course">{c.course}</span>
-            <h4>{c.title}</h4>
+            <span className="title">{c.title}</span>
             <span className="who">{c.who}</span>
           </button>
         ))}
       </div>
-      <p className="strip-hint">← Drag or scroll · pick a card →</p>
+      <p className="strip-hint">Drag or scroll the strip, then pick a card.</p>
       <div className="strip-detail" aria-live="polite">
-        <h4>{item.title}</h4>
+        <h3>{item.title}</h3>
         <p className="sub">{item.course} · {item.who}</p>
         <p>{item.body}</p>
         {item.table && (
@@ -82,7 +83,7 @@ export default function Coursework() {
         )}
         {item.link && (
           <a className="detail-link" href={item.link} target="_blank" rel="noopener">
-            See the code ↗
+            See the code <Arrow dir="out" />
           </a>
         )}
       </div>

@@ -11,7 +11,6 @@ export default function Page() {
   return (
     <CaseLayout
       slug="sentry"
-      eyebrow="Case study 03 · AI product"
       title="Sentry"
       dek="I wanted a study partner that had actually sat through my lectures. Sentry records class, transcribes it, and turns each session into something you can study from."
       meta={[

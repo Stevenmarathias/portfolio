@@ -11,7 +11,6 @@ export default function Page() {
   return (
     <CaseLayout
       slug="catch-radius-pressure"
-      eyebrow="Case study 01 · Sports analytics research"
       title="Catch Radius Pressure"
       dek="Box scores tell you whether a pass was caught. They don't tell you how hard the defense made it. I built a metric that measures the pressure on a receiver in the moment the ball arrives."
       meta={[
