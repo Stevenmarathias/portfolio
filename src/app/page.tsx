@@ -109,7 +109,7 @@ export default function Home() {
             <dl className="facts">
               <div><dt>Based in</dt><dd>Boston, MA</dd></div>
               <div><dt>School</dt><dd>BU Questrom, MSBA</dd></div>
-              <div><dt>Focus</dt><dd>Sports · Marketing · Business</dd></div>
+              <div><dt>Focus</dt><dd>Analytics · Business · Sports</dd></div>
               <div><dt>Available</dt><dd>January 2027</dd></div>
               <div><dt>Recently</dt><dd>MIT Sloan Sports Analytics Conf.</dd></div>
             </dl>
