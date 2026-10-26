@@ -3,6 +3,7 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import CountUp from "@/components/CountUp";
 import Coursework from "@/components/Coursework";
+import Resume from "@/components/Resume";
 import CopyEmail from "@/components/CopyEmail";
 import Arrow from "@/components/Arrow";
 import FlipText from "@/components/block/flip-text";
@@ -128,21 +129,9 @@ export default function Home() {
       <section className="block wrap" id="resume">
         <div>
           <h2 className="display">The path so far.</h2>
-          <p className="intro"><a href="/Steven_Marathias_Resume.pdf" target="_blank" rel="noopener">Open the full résumé (PDF) <Arrow dir="out" /></a></p>
+          <p className="intro">Open any row for the full detail, or <a href="/Steven_Marathias_Resume.pdf" target="_blank" rel="noopener">download the résumé PDF <Arrow dir="out" /></a>.</p>
         </div>
-        <div className="timeline">
-          <div className="tl"><span className="yr">2025 – Jan 2027</span><div><h3>M.S. Business Analytics</h3><p>Boston University, Questrom School of Business</p></div><span className="kind">School</span></div>
-          <div className="tl"><span className="yr">Oct 2025 – now</span><div><h3>Catch Radius Pressure</h3><p>NFL Big Data Bowl 2026, University Track · practicum proposal earned a perfect score</p></div><span className="kind">Research</span></div>
-          <div className="tl"><span className="yr">Apr 2024 – Aug 2025</span><div><h3>Business Analyst · Maratech NMR Solutions</h3><p>Cut operating costs 10% through financial and vendor analysis; built weekly stakeholder dashboards; translated three departments&apos; needs into requirements</p></div><span className="kind work-k">Work</span></div>
-          <div className="tl"><span className="yr">May 2023 – Apr 2024</span><div><h3>Associate Business Analyst · Flask Scientific</h3><p>Pricing model from a ten-competitor analysis lifted Q1 sales 12%; co-launched an e-commerce site with 1,000+ visits in month one</p></div><span className="kind work-k">Work</span></div>
-          <div className="tl"><span className="yr">Aug – Dec 2022</span><div><h3>Operations &amp; Strategy Intern · Neftwerk</h3><p>Business planning that moved a product launch up two months; cost reports behind a 15% expense reduction</p></div><span className="kind work-k">Work</span></div>
-          <div className="tl"><span className="yr">May 2023</span><div><h3>BBA, Entrepreneurship &amp; Innovation Management</h3><p>Temple University, Fox School of Business</p></div><span className="kind">School</span></div>
-        </div>
-        <div className="skills">
-          <div><h3>Analysis &amp; modeling</h3><p>Python (pandas, NumPy, scikit-learn, matplotlib), SQL (PostgreSQL, BigQuery, DuckDB), predictive modeling, clustering, A/B testing and causal inference, pricing and competitor analysis</p></div>
-          <div><h3>Building &amp; shipping</h3><p>FastAPI, Flask, React, Next.js, Streamlit, ETL pipelines, D3.js, Chart.js, Claude API, Whisper, Git, Linux</p></div>
-          <div><h3>Data &amp; tools</h3><p>NFL tracking and nflverse, WRDS Compustat, yfinance, Tableau, Excel, SPSS · Google Cybersecurity Professional Certificate, CompTIA</p></div>
-        </div>
+        <Resume />
       </section>
 
       <section className="contact wrap" id="contact">

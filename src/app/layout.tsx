@@ -4,6 +4,8 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SmoothScroll from "@/components/block/smooth-scroll";
+import { Analytics } from "@vercel/analytics/next";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 // Self-hosted (all SIL Open Font License). next/font adds size-matched fallbacks so text doesn't jump on load.
@@ -40,11 +42,6 @@ const mono = localFont({
   fallback: ["ui-monospace", "Menlo", "Consolas", "monospace"],
 });
 
-// Vercel sets this at build time, so link previews point at the live site.
-const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -56,10 +53,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Steven Marathias · Sports & Business Analytics",
     description: "I build metrics for the moments box scores miss.",
-    images: [{ url: "/headshot.jpg", width: 640, height: 640, alt: "Steven Marathias" }],
+    url: "/",
+    siteName: "Steven Marathias",
     type: "website",
   },
-  twitter: { card: "summary", images: ["/headshot.jpg"] },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
@@ -83,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </SmoothScroll>
         <Reveal />
+        <Analytics />
       </body>
     </html>
   );
