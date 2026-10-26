@@ -93,16 +93,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="block wrap" id="coursework">
-        <div>
-          <h2 className="display">Coursework and side projects.</h2>
-          <p className="intro">Team and solo work from the MSBA, plus a second NFL metric.</p>
-        </div>
-        <div>
-          <Coursework />
-        </div>
-      </section>
-
       <section className="block wrap" id="about">
         <div className="about">
           <div>
@@ -122,6 +112,16 @@ export default function Home() {
             <p>The MSBA at Boston University gave me the modeling side: supervised and unsupervised machine learning, experimentation and causal inference, and financial and marketing analytics. I use it most on the two things I care about, football and the businesses around me.</p>
             <p>Catch Radius Pressure started as my Big Data Bowl entry, became my practicum research, and now powers a public NFL stats site. That&apos;s how I like to work: find something nobody&apos;s measuring, measure it, then ship something people can use.</p>
           </div>
+        </div>
+      </section>
+
+      <section className="block wrap" id="coursework">
+        <div>
+          <h2 className="display">Coursework and side projects.</h2>
+          <p className="intro">Team and solo work from the MSBA, plus a second NFL metric.</p>
+        </div>
+        <div>
+          <Coursework />
         </div>
       </section>
 
