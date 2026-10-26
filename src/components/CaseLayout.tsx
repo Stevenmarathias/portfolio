@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Arrow from "@/components/Arrow";
+import DiscoverButton from "@/components/block/discover-button";
 
 export const cases = [
   { slug: "catch-radius-pressure", title: "Catch Radius Pressure" },
@@ -29,11 +30,15 @@ export default function CaseLayout({ slug, title, dek, meta, links, children }: 
           <p className="dek">{dek}</p>
           {links && (
             <div className="ctas" style={{ marginBottom: 40 }}>
-              {links.map((l, j) => (
-                <a key={l.href} className={j === 0 ? "btn primary" : "btn"} href={l.href} target="_blank" rel="noopener">
-                  {l.label} <Arrow dir="out" />
-                </a>
-              ))}
+              {links.map((l, j) =>
+                j === 0 ? (
+                  <DiscoverButton key={l.href} label={l.label} href={l.href} external dir="out" />
+                ) : (
+                  <a key={l.href} className="btn" href={l.href} target="_blank" rel="noopener">
+                    {l.label} <Arrow dir="out" />
+                  </a>
+                )
+              )}
             </div>
           )}
           <dl className="case-meta">

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import SmoothScroll from "@/components/block/smooth-scroll";
 import "./globals.css";
 
 // Self-hosted (all SIL Open Font License). next/font adds size-matched fallbacks so text doesn't jump on load.
@@ -76,9 +77,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <a className="skip" href="#main">Skip to content</a>
-        <Nav />
-        <div id="main">{children}</div>
-        <Footer />
+        <SmoothScroll>
+          <Nav />
+          <div id="main">{children}</div>
+          <Footer />
+        </SmoothScroll>
         <Reveal />
       </body>
     </html>

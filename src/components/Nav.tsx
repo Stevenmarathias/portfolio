@@ -1,11 +1,12 @@
 import Link from "next/link";
+import FlipText from "@/components/block/flip-text";
 
 export default function Nav() {
   return (
     <header className="nav">
       <div className="wrap">
         <Link className="brand" href="/">
-          Steven <b>Marathias</b>
+          <FlipText>Steven</FlipText> <b><FlipText>Marathias</FlipText></b>
         </Link>
         <nav className="navlinks" aria-label="Main">
           <Link href="/#work">Work</Link>

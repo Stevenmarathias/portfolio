@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Arrow from "@/components/Arrow";
+import DiscoverButton from "@/components/block/discover-button";
 
 const WORDS = ["box scores", "stat sheets", "highlight reels"];
 
@@ -364,9 +365,7 @@ export default function Hero() {
           Behind me: two years of pricing and operations analytics in Cambridge.
         </p>
         <div className="ctas">
-          <a className="btn primary" href="#work">
-            See the work <Arrow dir="down" />
-          </a>
+          <DiscoverButton label="See the work" href="#work" dir="down" />
           <a className="btn" href="/Steven_Marathias_Resume.pdf" target="_blank" rel="noopener">
             Résumé <Arrow dir="out" />
           </a>

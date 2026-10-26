@@ -5,6 +5,7 @@ import CountUp from "@/components/CountUp";
 import Coursework from "@/components/Coursework";
 import CopyEmail from "@/components/CopyEmail";
 import Arrow from "@/components/Arrow";
+import FlipText from "@/components/block/flip-text";
 import { AucChart, ElaionMeters, Formation, SentryFlow } from "@/components/charts";
 
 export default function Home() {
@@ -146,7 +147,7 @@ export default function Home() {
 
       <section className="contact wrap" id="contact">
         <div>
-          <h2 className="display">Let&apos;s talk <em>data.</em></h2>
+          <h2 className="display"><FlipText>{"Let’s talk"}</FlipText> <em><FlipText>data.</FlipText></em></h2>
           <p className="intro" style={{ marginBottom: 0 }}>I&apos;m looking for analyst roles in sports, marketing and business analytics starting January 2027, in Boston or remote. Happy to talk even if you&apos;re just exploring.</p>
           <CopyEmail email="stevenm5@bu.edu" />
           <div className="social">
