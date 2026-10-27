@@ -319,3 +319,130 @@ export function AloneDays() {
     </svg>
   );
 }
+
+/* ───────────── Coverage Shadow: one play ───────────── */
+
+// Game 2023100111, play 3683 (week 4). Times to ball are exact from outputs/shadow_plays_2023_season.csv.
+// Positions at release are read off the repo's matplotlib figure (field yards; x = downfield, y = across), so they are approximate.
+const PLAY = {
+  passer: { x: 46.4, y: 29.5 },
+  ball: { x: 60.6, y: 50.8 },
+  target: { x: 62.0, y: 49.9, t: 0.762 },
+  receivers: [
+    { x: 63.1, y: 9.2 },
+    { x: 62.7, y: 17.2 },
+    { x: 60.5, y: 23.7 },
+  ],
+  defenders: [
+    { n: "Gilmore", x: 62.5, y: 48.9, t: 0.863, key: true },
+    { n: "Kearse", x: 55.9, y: 35.5, t: 3.621 },
+    { n: "Bell", x: 63.6, y: 30.3, t: 4.875 },
+    { n: "Vander Esch", x: 62.4, y: 24.1, t: 6.216 },
+    { n: "Hooker", x: 72.4, y: 23.4, t: 6.905 },
+    { n: "Lewis", x: 65.0, y: 18.5, t: 7.518 },
+    { n: "Bland", x: 67.2, y: 10.2, t: 9.396 },
+  ],
+};
+
+export function CsPlay() {
+  // field view: across the field left→right, downfield bottom→top (offense moving up)
+  const U = 11;
+  const X0 = 40, X1 = 78; // downfield yards shown
+  const sx = (y: number) => 18 + y * U; // across
+  const sy = (x: number) => 18 + (X1 - x) * U; // downfield
+  const P = PLAY;
+  const ctrl = { x: (sx(P.passer.y) + sx(P.ball.y)) / 2 - 20, y: Math.min(sy(P.passer.x), sy(P.ball.x)) - 70 };
+  const lines = [45, 50, 55, 60, 65, 70, 75];
+  const num = (x: number) => (x <= 60 ? x - 10 : 110 - x);
+  // timeline
+  const tx = (t: number) => 120 + t * 32;
+  const rows = [{ n: "Target receiver", t: P.target.t, kind: "target" as const }, ...P.defenders.map((df) => ({ n: df.n, t: df.t, kind: df.key ? ("key" as const) : ("def" as const) }))];
+  return (
+    <div className="play-pair">
+      <svg viewBox={`0 0 ${36 + 53.3 * U} ${36 + (X1 - X0) * U}`} role="img" aria-label="Field diagram of the play: the pass travels from the quarterback to the right sideline, where Stephon Gilmore is the only defender close enough to contest it">
+        <rect x="18" y="18" width={53.3 * U} height={(X1 - X0) * U} rx="4" fill="#0E2A1E" />
+        {lines.map((x, i) => (
+          <g key={x}>
+            {i % 2 === 0 && <rect x="18" y={sy(x + 5)} width={53.3 * U} height={5 * U} fill="#113222" opacity="0.7" />}
+          </g>
+        ))}
+        {lines.map((x) => (
+          <g key={`l${x}`}>
+            <path d={`M18 ${sy(x)} H${18 + 53.3 * U}`} stroke="rgba(238,242,247,0.16)" strokeWidth={x % 10 === 0 ? 1.4 : 0.8} />
+            {x % 10 === 0 && (
+              <>
+                <text x={sx(6)} y={sy(x) + 4} textAnchor="middle" fontFamily="var(--font-display), sans-serif" fontWeight="800" fontSize="15" fill="rgba(238,242,247,0.22)">{num(x)}</text>
+                <text x={sx(47.3)} y={sy(x) + 4} textAnchor="middle" fontFamily="var(--font-display), sans-serif" fontWeight="800" fontSize="15" fill="rgba(238,242,247,0.22)">{num(x)}</text>
+              </>
+            )}
+          </g>
+        ))}
+        {Array.from({ length: X1 - X0 + 1 }, (_, k) => X0 + k).map((x) => (
+          <g key={`h${x}`} stroke="rgba(238,242,247,0.14)">
+            <path d={`M${sx(23.6) - 3} ${sy(x)} h6`} />
+            <path d={`M${sx(29.7) - 3} ${sy(x)} h6`} />
+          </g>
+        ))}
+        {/* paths to the landing spot */}
+        {P.defenders.map((df, i) => (
+          <path key={`p${df.n}`} className="ch-draw" style={d(4 + i * 0.8)} pathLength={1} d={`M${sx(df.y)} ${sy(df.x)} L${sx(P.ball.y)} ${sy(P.ball.x)}`} stroke={df.key ? "var(--lamp)" : "rgba(255,122,92,0.45)"} strokeWidth={df.key ? 2 : 1.2} strokeDasharray={df.key ? "" : "3 5"} fill="none" />
+        ))}
+        {/* ball flight */}
+        <path className="ch-draw" style={d(1)} pathLength={1} d={`M${sx(P.passer.y)} ${sy(P.passer.x)} Q${ctrl.x} ${ctrl.y} ${sx(P.ball.y)} ${sy(P.ball.x)}`} stroke="var(--chalk)" strokeWidth="1.6" strokeDasharray="1 0" fill="none" opacity="0.85" />
+        <g className="ch-pop" style={d(3)}>
+          <circle cx={sx(P.ball.y)} cy={sy(P.ball.x)} r="16" fill="rgba(255,194,75,0.12)" stroke="var(--lamp)" strokeDasharray="3 3" />
+          <path d={`M${sx(P.ball.y) - 5} ${sy(P.ball.x) - 5} l10 10 m0 -10 l-10 10`} stroke="var(--chalk)" strokeWidth="2.2" strokeLinecap="round" />
+        </g>
+        {/* players */}
+        <rect className="ch-pop" style={d(0)} x={sx(P.passer.y) - 6} y={sy(P.passer.x) - 6} width="12" height="12" rx="2" fill="var(--chalk)" />
+        <text className="ch-fade" style={d(0)} x={sx(P.passer.y)} y={sy(P.passer.x) + 22} textAnchor="middle" fontFamily={mono} fontSize="10" fill="var(--chalk-dim)">QB</text>
+        {P.receivers.map((r, i) => (
+          <circle key={`r${i}`} className="ch-pop" style={d(0.5 + i * 0.3)} cx={sx(r.y)} cy={sy(r.x)} r="6" fill="#7FA7D9" />
+        ))}
+        <circle className="ch-pop" style={d(2)} cx={sx(P.target.y)} cy={sy(P.target.x)} r="7.5" fill="var(--turf)" stroke="var(--ground)" strokeWidth="2" />
+        {P.defenders.map((df, i) => (
+          <g key={df.n}>
+            {df.key && <circle className="ch-pop" style={d(9)} cx={sx(df.y)} cy={sy(df.x)} r="15" fill="none" stroke="var(--lamp)" strokeWidth="2" />}
+            <circle className="ch-pop" style={d(0.8 + i * 0.4)} cx={sx(df.y)} cy={sy(df.x)} r={df.key ? 8 : 6.5} fill={df.key ? "var(--lamp)" : "var(--flag)"} />
+            <text className="ch-fade" style={d(5 + i * 0.6)} x={sx(df.y) + (df.key ? -19 : 11)} y={sy(df.x) + (df.key ? -6 : 4)} textAnchor={df.key ? "end" : "start"} fontFamily={mono} fontSize="10" fill={df.key ? "var(--lamp)" : "var(--chalk-dim)"}>
+              {df.n}
+            </text>
+          </g>
+        ))}
+        <text className="ch-fade" style={d(6)} x={sx(P.target.y) + 13} y={sy(P.target.x) - 10} fontFamily={mono} fontSize="10" fill="var(--turf)">target</text>
+      </svg>
+
+      <svg viewBox="0 0 470 430" role="img" aria-label="Race to the ball: the target arrives in 0.76 seconds and Gilmore in 0.86, a catch window of 0.10 seconds. Without Gilmore, the nearest defender is Kearse at 3.62 seconds, so the window would be 2.86 seconds. Gilmore's Shadow is 2.76 seconds.">
+        <text x="0" y="16" fontFamily={mono} fontSize="11" fill="var(--chalk)">Race to the landing spot</text>
+        <text x="0" y="32" fontFamily={mono} fontSize="9.5" fill="var(--chalk-faint)">seconds from release, at each player&apos;s speed and angle</text>
+        {[0, 2, 4, 6, 8, 10].map((t) => (
+          <g key={t}>
+            <path d={`M${tx(t)} 46 V326`} stroke="var(--rule)" strokeDasharray="2 4" />
+            <text x={tx(t)} y="342" textAnchor="middle" fontFamily={mono} fontSize="10" fill="var(--chalk-faint)">{t}s</text>
+          </g>
+        ))}
+        {rows.map((r, i) => {
+          const y = 58 + i * 34;
+          const col = r.kind === "target" ? "var(--turf)" : r.kind === "key" ? "var(--lamp)" : "var(--flag)";
+          return (
+            <g key={r.n}>
+              <text x="0" y={y + 4} fontFamily={mono} fontSize="10.5" fill={r.kind === "def" ? "var(--chalk-dim)" : "var(--chalk)"}>{r.n}</text>
+              <rect className="ch-bx" style={d(2 + i * 0.7)} x="120" y={y - 6} width={tx(r.t) - 120} height="12" rx="2" fill={col} opacity={r.kind === "def" ? 0.55 : 1} />
+              <text className="ch-fade" style={d(4 + i * 0.7)} x={tx(r.t) + 7} y={y + 4} fontFamily={mono} fontSize="10" fill="var(--chalk)">{r.t.toFixed(2)}</text>
+            </g>
+          );
+        })}
+        {/* window and shadow callouts */}
+        <g className="ch-fade" style={d(11)}>
+          <path d={`M${tx(P.target.t)} 360 V372 H${tx(0.863)} V360`} stroke="var(--lamp)" fill="none" strokeWidth="1.5" />
+          <text x={tx(0.86) + 8} y="374" fontFamily={mono} fontSize="10.5" fill="var(--lamp)">catch window 0.10s</text>
+        </g>
+        <g className="ch-fade" style={d(14)}>
+          <path d={`M${tx(0.863)} 394 V406 H${tx(3.621)} V394`} stroke="var(--turf)" fill="none" strokeWidth="1.5" strokeDasharray="4 3" />
+          <text x={tx(3.621) + 8} y="408" fontFamily={mono} fontSize="10.5" fill="var(--turf)">Shadow 2.76s</text>
+          <text x="0" y="428" fontFamily={mono} fontSize="9.5" fill="var(--chalk-faint)">remove Gilmore and the next defender is 2.76s further away</text>
+        </g>
+      </svg>
+    </div>
+  );
+}

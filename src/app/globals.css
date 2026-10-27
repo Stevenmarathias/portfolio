@@ -423,3 +423,6 @@ html.js [data-chart]:not(.play) .meter .fill { transform: scaleX(0); }
 @media (prefers-reduced-motion: reduce) {
   [data-chart] .ch-bx, [data-chart] .ch-by, [data-chart] .ch-cx, [data-chart] .ch-pop, [data-chart] .ch-draw, [data-chart] .ch-fade, [data-chart] .meter .fill { transition: none; }
 }
+.play-pair { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: center; }
+.play-pair > * { min-width: 0; width: 100%; height: auto; display: block; overflow: visible; }
+@media (max-width: 860px) { .play-pair { grid-template-columns: 1fr; gap: 22px; } }

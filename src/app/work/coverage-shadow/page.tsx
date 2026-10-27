@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import CaseLayout, { ChartFig, Fig, Section } from "@/components/CaseLayout";
-import { CsForest, CsReliability } from "@/components/anim-charts";
+import CaseLayout, { ChartFig, Section } from "@/components/CaseLayout";
+import { CsForest, CsPlay, CsReliability } from "@/components/anim-charts";
 
 export const metadata: Metadata = {
   title: "Coverage Shadow",
@@ -32,13 +32,9 @@ export default function Page() {
 
       <Section title="Building the metric">
         <p>At the moment the ball is released, I estimate how long each player needs to reach the landing spot, from his position, speed and direction plus a 0.3-second reaction time. The <strong>catch window</strong> is how far ahead of the fastest defender the targeted receiver gets there. A defender&apos;s <strong>Shadow</strong> is how much that window would grow if he weren&apos;t on the field.</p>
-        <Fig
-          src="/work/coverage-shadow/example-play.webp"
-          alt="Field diagram of a 2023 play: Stephon Gilmore is the closest defender and forces an incompletion, with each defender's time to the ball labeled"
-          w={1600}
-          h={692}
-          caption="Stephon Gilmore forces an incompletion. He reaches the landing spot 0.86 seconds after release, leaving a catch window of 0.10 seconds and a Shadow of 2.76 seconds."
-        />
+        <ChartFig caption="One real play (week 4, 2023). Each defender's time to the landing spot comes from his position, speed and direction at release. Stephon Gilmore is the only one close enough to contest it, so removing him would widen the catch window by 2.76 seconds. He forced the incompletion.">
+          <CsPlay />
+        </ChartFig>
         <dl className="steps">
           <div><dt>v1</dt><dd><strong>Total and average Shadow.</strong> Season totals mostly rewarded corners who were targeted a lot, so the average per coverage snap became the main number.</dd></div>
           <div><dt>v2</dt><dd><strong>Shadow Over Expected (SOE).</strong> A logistic model turns the catch window into an expected completion probability; SOE counts completions a defender prevented beyond that. Adding throw depth improved held-out log loss from 0.5354 to 0.5217, better in all 6 of 6 folds. A squared depth term didn&apos;t clear the bar and was rejected.</dd></div>
