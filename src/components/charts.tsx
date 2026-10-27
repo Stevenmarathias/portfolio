@@ -153,3 +153,37 @@ export function RedZone() {
     </svg>
   );
 }
+
+/** Business results from Steven's résumé, as percentage changes on one 0–20% scale. */
+export function ImpactChart() {
+  const x = (v: number) => 150 + v * 9; // 1% = 9px, 20% = 180px
+  const rows = [
+    { label: "Q1 sales", sub: "pricing model · Flask", v: 12, sign: "+", c: "var(--lamp)" },
+    { label: "Operating costs", sub: "vendor analysis · Maratech", v: 10, sign: "−", c: "var(--turf)" },
+    { label: "Expenses", sub: "cost reports · Neftwerk", v: 15, sign: "−", c: "var(--turf)" },
+  ];
+  return (
+    <svg viewBox="0 0 350 196" role="img" aria-label="Sales up 12% after a new pricing model; operating costs down 10% from vendor analysis; expenses down 15% from cost reports">
+      <g fontFamily={mono} fontSize="10" fill="var(--chalk-faint)" textAnchor="middle">
+        {[0, 5, 10, 15, 20].map((t) => (
+          <g key={t}>
+            <line x1={x(t)} y1="8" x2={x(t)} y2="160" stroke="var(--rule)" />
+            <text x={x(t)} y="176">{t}%</text>
+          </g>
+        ))}
+      </g>
+      {rows.map((r, i) => {
+        const y = 22 + i * 50;
+        return (
+          <g key={r.label}>
+            <text x="0" y={y + 6} fontFamily={mono} fontSize="11" fill="var(--chalk)">{r.label}</text>
+            <text x="0" y={y + 21} fontFamily={mono} fontSize="9" fill="var(--chalk-faint)">{r.sub}</text>
+            <rect x={x(0)} y={y - 4} width={x(r.v) - x(0)} height="16" rx="2" fill={r.c} opacity={i === 0 ? 1 : 0.75} />
+            <text x={x(r.v) + 8} y={y + 8} fontFamily={mono} fontSize="11" fill="var(--chalk)">{r.sign}{r.v}%</text>
+          </g>
+        );
+      })}
+      <text x="150" y="192" fontFamily={mono} fontSize="9" fill="var(--chalk-faint)">size of change</text>
+    </svg>
+  );
+}

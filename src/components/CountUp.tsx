@@ -3,10 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 
 /** Counts from 0 to `value` once the number scrolls into view. The final value is the server-rendered text. */
-export default function CountUp({ value, decimals = 0 }: { value: number; decimals?: number }) {
+export default function CountUp({
+  value,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+}: {
+  value: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const fmt = (n: number) =>
-    n.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    prefix + n.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
   const [text, setText] = useState(fmt(value));
 
   useEffect(() => {

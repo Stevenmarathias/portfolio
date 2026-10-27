@@ -7,7 +7,7 @@ import Resume from "@/components/Resume";
 import CopyEmail from "@/components/CopyEmail";
 import Arrow from "@/components/Arrow";
 import FlipText from "@/components/block/flip-text";
-import { AucChart, ElaionMeters, Formation, SentryFlow } from "@/components/charts";
+import { AucChart, ElaionMeters, Formation, ImpactChart, SentryFlow } from "@/components/charts";
 
 export default function Home() {
   return (
@@ -16,21 +16,48 @@ export default function Home() {
 
       <div className="wrap">
         <div className="stats">
-          <div className="stat"><b><CountUp value={14108} /></b><span>passing plays behind Catch Radius Pressure</span></div>
-          <div className="stat"><b><CountUp value={0.855} decimals={3} /></b><span>test AUC, leverage-adjusted catch model</span></div>
-          <div className="stat"><b><CountUp value={7222} /></b><span>NFL games of starters pulled from ESPN</span></div>
-          <div className="stat"><b><CountUp value={27} /></b><span>seasons live on Catch Point Analytics</span></div>
+          <div className="stat"><b><CountUp value={12} prefix="+" suffix="%" /></b><span>first-quarter sales after my new pricing model</span></div>
+          <div className="stat"><b><CountUp value={10} prefix="−" suffix="%" /></b><span>operating costs, from financial and vendor analysis</span></div>
+          <div className="stat"><b><CountUp value={0.855} decimals={3} /></b><span>test AUC on my NFL catch-probability model</span></div>
+          <div className="stat"><b><CountUp value={7000} suffix="+" /></b><span>games run through my ETL pipelines</span></div>
         </div>
       </div>
 
       <section className="block wrap" id="work">
         <div>
-          <h2 className="display">Four projects. Four kinds of question.</h2>
-          <p className="intro">A new metric, a product built on top of it, an AI tool, and a family business with real lab data. Every chart uses the project&apos;s actual numbers. Click through for the full story.</p>
+          <h2 className="display">Selected work.</h2>
+          <p className="intro">Pricing and operations work from industry, a marketing problem with real lab data, the sports analytics I build on my own, and an AI product. Every chart uses real numbers.</p>
         </div>
 
         <WorkScroll
           items={[
+            {
+              href: "/#resume",
+              cta: "See the full résumé",
+              title: "Pricing & Operations Analytics",
+              pills: <><span className="pill live-pill">Industry</span><span className="pill">Flask Scientific · Maratech NMR</span></>,
+              body: "Two years as a business analyst at two Cambridge scientific companies. I benchmarked pricing against ten competitors and built a new pricing model, ran financial and vendor analysis, and built the weekly dashboards stakeholders used to coordinate.",
+              result: "First-quarter sales rose 12% under the new pricing model, and vendor analysis cut operating costs 10%.",
+              tags: ["Pricing analysis", "Financial analysis", "Dashboards", "Requirements"],
+              vizLabel: "Measured business impact",
+              viz: <ImpactChart />,
+            },
+            {
+              href: "/work/elaion",
+              title: "Elaion Olive Oil",
+              pills: <><span className="pill live-pill">Ongoing</span><span className="pill">Marketing analytics</span></>,
+              body: "Growth for my family’s single-estate organic olive oil from Kalamata, Greece: lab data turned into customer-facing charts, a site rebuild, and wholesale outreach.",
+              result: "Every freshness marker sits inside the extra virgin limits, and the charts show shoppers exactly where.",
+              tags: ["Chart.js", "Brand strategy", "B2B outreach"],
+              vizLabel: "2025–26 harvest · lab results",
+              viz: (
+                <>
+                  <div className="big-num">335<small>mg/kg polyphenols</small></div>
+                  <p className="viz-label" style={{ marginTop: 22 }}>Share of extra virgin limit used</p>
+                  <ElaionMeters />
+                </>
+              ),
+            },
             {
               href: "/work/catch-radius-pressure",
               title: "Catch Radius Pressure",
@@ -60,22 +87,6 @@ export default function Home() {
               tags: ["Flask", "Claude API", "Whisper", "D3.js"],
               vizLabel: "What one lecture becomes",
               viz: <SentryFlow />,
-            },
-            {
-              href: "/work/elaion",
-              title: "Elaion Olive Oil",
-              pills: <><span className="pill live-pill">Ongoing</span><span className="pill">Marketing analytics</span></>,
-              body: "Growth for my family’s single-estate organic olive oil from Kalamata, Greece: lab data turned into customer-facing charts, a site rebuild, and wholesale outreach.",
-              result: "Every freshness marker sits inside the extra virgin limits, and the charts show shoppers exactly where.",
-              tags: ["Chart.js", "Brand strategy", "B2B outreach"],
-              vizLabel: "2025–26 harvest · lab results",
-              viz: (
-                <>
-                  <div className="big-num">335<small>mg/kg polyphenols</small></div>
-                  <p className="viz-label" style={{ marginTop: 22 }}>Share of extra virgin limit used</p>
-                  <ElaionMeters />
-                </>
-              ),
             },
           ]}
         />

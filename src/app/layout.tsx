@@ -46,14 +46,14 @@ const mono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Steven Marathias · Sports & Business Analytics",
+    default: "Steven Marathias · Business & Sports Analytics",
     template: "%s · Steven Marathias",
   },
   description:
-    "Business analyst and BU MSBA candidate. I build metrics for the moments box scores miss: Catch Radius Pressure, Catch Point Analytics, Sentry and more.",
+    "Business analyst and BU MSBA candidate. Pricing, operations and marketing analytics, plus sports analytics including Catch Radius Pressure and Catch Point Analytics.",
   openGraph: {
-    title: "Steven Marathias · Sports & Business Analytics",
-    description: "I build metrics for the moments box scores miss.",
+    title: "Steven Marathias · Business & Sports Analytics",
+    description: "I turn messy data into decisions for pricing, marketing, operations and front offices.",
     url: "/",
     siteName: "Steven Marathias",
     type: "website",

@@ -9,24 +9,22 @@ export type CourseProject = {
 
 export const coursework: CourseProject[] = [
   {
-    course: "Side project · Sep 2026",
-    title: "Coverage Shadow",
-    who: "Solo · NFL defensive metric",
-    body: "A tracking metric for how much catch window a defender takes away at the moment of release, built on 14,107 plays from the 2023 Big Data Bowl data. Throws into the top quartile of Shadow were completed 62.5% of the time versus 75.0% in the bottom quartile. I also pre-registered stability and predictive tests: average Shadow is about as repeatable as completion % allowed (split-half r = 0.43), but it doesn't forecast future coverage results, so I report it as a measure of involvement rather than quality.",
-    link: "https://github.com/Stevenmarathias/coverage-shadow",
-    table: {
-      head: ["Closest-defender Shadow", "Throws", "Completion %"],
-      rows: [
-        ["Top quartile (≥ 1.03 s)", "3,443", "62.5%"],
-        ["Bottom quartile (≤ 0.26 s)", "3,443", "75.0%"],
-      ],
-    },
-  },
-  {
     course: "BA870 · Financial Analytics",
     title: "Financial Performance Predictor",
     who: "Team · built the dashboard",
     body: "I built the interactive dashboard section of our team's predictor, combining WRDS Compustat fundamentals with live Yahoo Finance data and deploying it on Streamlit. Along the way I fixed a units mismatch between the two sources (raw dollars vs. millions) and a model-loading incompatibility by retraining at startup.",
+  },
+  {
+    course: "BA860 · Marketing Analytics",
+    title: "Sponsored Search ROI and Attribution",
+    who: "Coursework",
+    body: "Difference-in-differences ROI analysis of a sponsored search ad case, power calculations for experiment design, first-touch, last-touch and linear attribution models, and social media analytics for Delta Air Lines.",
+  },
+  {
+    course: "MK852 · Data-Driven Marketing",
+    title: "Client Project: ALOUD Live Translator",
+    who: "Team · in progress",
+    body: "A semester-long project for a real client, an iPhone translation app. The work covers qualitative research, survey design and SPSS analysis to turn customer data into marketing decisions.",
   },
   {
     course: "BA810 · Supervised ML",
@@ -53,21 +51,23 @@ export const coursework: CourseProject[] = [
     },
   },
   {
-    course: "BA860 · Marketing Analytics",
-    title: "Sponsored Search ROI and Attribution",
-    who: "Coursework",
-    body: "Difference-in-differences ROI analysis of a sponsored search ad case, power calculations for experiment design, first-touch, last-touch and linear attribution models, and social media analytics for Delta Air Lines.",
-  },
-  {
     course: "BA830 · Business Experimentation",
     title: "A/B Testing and Causal Inference",
     who: "Coursework",
     body: "Designing and analyzing randomized experiments, estimating treatment effects and choosing the right causal tool when randomization isn't available.",
   },
   {
-    course: "MK852 · Data-Driven Marketing",
-    title: "Client Project: ALOUD Live Translator",
-    who: "Team · in progress",
-    body: "A semester-long project for a real client, an iPhone translation app. The work covers qualitative research, survey design and SPSS analysis to turn customer data into marketing decisions.",
+    course: "Side project · Sep 2026",
+    title: "Coverage Shadow",
+    who: "Solo · NFL defensive metric",
+    body: "A tracking metric for how much catch window a defender takes away at the moment of release, built on 14,107 plays from the 2023 Big Data Bowl data. Throws into the top quartile of Shadow were completed 62.5% of the time versus 75.0% in the bottom quartile. I also pre-registered stability and predictive tests: average Shadow is about as repeatable as completion % allowed (split-half r = 0.43), but it doesn't forecast future coverage results, so I report it as a measure of involvement rather than quality.",
+    link: "https://github.com/Stevenmarathias/coverage-shadow",
+    table: {
+      head: ["Closest-defender Shadow", "Throws", "Completion %"],
+      rows: [
+        ["Top quartile (≥ 1.03 s)", "3,443", "62.5%"],
+        ["Bottom quartile (≤ 0.26 s)", "3,443", "75.0%"],
+      ],
+    },
   },
 ];

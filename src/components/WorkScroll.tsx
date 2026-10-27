@@ -8,6 +8,7 @@ import Arrow from "@/components/Arrow";
 
 export type WorkItem = {
   href: string;
+  cta?: string;
   title: string;
   pills: ReactNode;
   body: ReactNode;
@@ -58,7 +59,7 @@ export default function WorkScroll({ items }: { items: WorkItem[] }) {
               {it.viz}
             </div>
             <Link className="read" href={it.href}>
-              Read the case study <Arrow />
+              {it.cta ?? "Read the case study"} <Arrow dir={it.href.startsWith("/#") ? "down" : "right"} />
             </Link>
           </article>
         ))}

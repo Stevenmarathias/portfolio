@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Arrow from "@/components/Arrow";
 import DiscoverButton from "@/components/block/discover-button";
 
-const WORDS = ["box scores", "stat sheets", "highlight reels"];
+const WORDS = ["pricing teams", "marketing teams", "operations", "front offices"];
 
 type V = { x: number; y: number };
 type Play = {
@@ -353,16 +353,16 @@ export default function Hero() {
       <div className="hero-scrim" aria-hidden="true" />
       <div className="wrap hero-inner">
         <h1>
-          I build metrics for the moments{" "}
+          I turn messy data into decisions for{" "}
           <span className={out ? "flip out" : "flip"} aria-live="off">
             {WORDS[word]}
-          </span>{" "}
-          miss.
+          </span>
+          .
         </h1>
         <p className="lede">
-          Business analyst turned sports and marketing analytics builder. I invented{" "}
-          <strong>Catch Radius Pressure</strong>, a new NFL tracking metric, and turned it into a public stats site.
-          Behind me: two years of pricing and operations analytics in Cambridge.
+          Business analyst with two years of <strong>pricing and operations analytics</strong> in Cambridge, now
+          finishing an MSBA at Boston University. I build models and tools people use, from a pricing model that
+          lifted sales 12% to an NFL tracking metric I turned into a public stats site.
         </p>
         <div className="ctas">
           <DiscoverButton label="See the work" href="#work" dir="down" />
