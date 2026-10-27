@@ -64,6 +64,14 @@ const entries: Entry[] = [
     ],
   },
   {
+    yr: "May 2023",
+    title: "BBA, Entrepreneurship & Innovation Management",
+    org: "Temple University, Fox School of Business · Philadelphia, PA",
+    summary: "Undergraduate degree",
+    kind: "School",
+    details: ["Bachelor of Business Administration, Entrepreneurship and Innovation Management."],
+  },
+  {
     yr: "Aug – Dec 2022",
     title: "Operations & Strategy Intern",
     org: "Neftwerk Inc · Philadelphia, PA",
@@ -73,14 +81,6 @@ const entries: Entry[] = [
       "Accelerated product launch timelines by two months through structured business-planning support.",
       "Developed cost-saving reports that contributed to a 15% reduction in expenses.",
     ],
-  },
-  {
-    yr: "May 2023",
-    title: "BBA, Entrepreneurship & Innovation Management",
-    org: "Temple University, Fox School of Business · Philadelphia, PA",
-    summary: "Undergraduate degree",
-    kind: "School",
-    details: ["Bachelor of Business Administration, Entrepreneurship and Innovation Management."],
   },
 ];
 

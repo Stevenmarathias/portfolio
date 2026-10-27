@@ -6,6 +6,7 @@ import DiscoverButton from "@/components/block/discover-button";
 export const cases = [
   { slug: "elaion", title: "Elaion Olive Oil" },
   { slug: "catch-radius-pressure", title: "Catch Radius Pressure" },
+  { slug: "defense-rankings", title: "NFL Pass Defense Rankings" },
   { slug: "catch-point-analytics", title: "Catch Point Analytics" },
   { slug: "sentry", title: "Sentry" },
   { slug: "coverage-shadow", title: "Coverage Shadow" },
@@ -35,15 +36,19 @@ export default function CaseLayout({ slug, title, dek, meta, links, glance, chil
           <p className="dek">{dek}</p>
           {links && (
             <div className="ctas" style={{ marginBottom: 40 }}>
-              {links.map((l, j) =>
-                j === 0 ? (
-                  <DiscoverButton key={l.href} label={l.label} href={l.href} external dir="out" />
+              {links.map((l, j) => {
+                const internal = l.href.startsWith("/");
+                if (j === 0) return <DiscoverButton key={l.href} label={l.label} href={l.href} external={!internal} dir={internal ? "right" : "out"} />;
+                return internal ? (
+                  <Link key={l.href} className="btn" href={l.href}>
+                    {l.label} <Arrow />
+                  </Link>
                 ) : (
                   <a key={l.href} className="btn" href={l.href} target="_blank" rel="noopener">
                     {l.label} <Arrow dir="out" />
                   </a>
-                )
-              )}
+                );
+              })}
             </div>
           )}
           <dl className="case-meta">

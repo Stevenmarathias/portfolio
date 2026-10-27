@@ -446,3 +446,95 @@ export function CsPlay() {
     </div>
   );
 }
+
+/* ───────────── Defense rankings ───────────── */
+
+// labels nudged where neighbouring teams would overlap: [dx, dy, anchor]
+const TEAM_POS: Record<string, [number, number, "start" | "middle" | "end"]> = {
+  ATL: [-8, 7, "end"],
+  DEN: [-8, 4, "end"],
+  DET: [-8, 9, "end"],
+  CIN: [0, -9, "middle"],
+};
+
+export function DefQuadrant() {
+  const T = data.defTeams;
+  const M = data.defMeta;
+  const x = (v: number) => 56 + ((v - 0.15) / 0.105) * 440; // pressure 0.15..0.255
+  const y = (v: number) => 30 + ((v - 0.65) / 0.12) * 330; // completion allowed 0.65 (top, better) .. 0.77
+  const sorted = [...T].sort((a, b) => a.pressure - b.pressure);
+  const quadColor = (t: (typeof T)[number]) =>
+    t.pressure >= M.medPressure
+      ? t.cmp < M.medCmp ? "var(--turf)" : "var(--lamp)"
+      : t.cmp < M.medCmp ? "#6FA8DC" : "var(--flag)";
+  return (
+    <>
+      <svg viewBox="0 0 520 410" role="img" aria-label="All 32 defenses plotted by catch-point pressure generated and completion rate allowed, split at the medians into four quadrants">
+        {[0.66, 0.69, 0.72, 0.75].map((t) => (
+          <g key={t}>
+            <path d={`M56 ${y(t)} H500`} stroke="var(--rule)" strokeDasharray="2 4" />
+            <text x="48" y={y(t) + 3} textAnchor="end" fontFamily={mono} fontSize="10" fill="var(--chalk-faint)">{Math.round(t * 100)}%</text>
+          </g>
+        ))}
+        {[0.16, 0.18, 0.2, 0.22, 0.24].map((t) => (
+          <text key={t} x={x(t)} y="380" textAnchor="middle" fontFamily={mono} fontSize="10" fill="var(--chalk-faint)">{t.toFixed(2)}</text>
+        ))}
+        <path className="ch-draw" style={d(0)} pathLength={1} d={`M${x(M.medPressure)} 24 V366`} stroke="var(--chalk-dim)" strokeDasharray="5 4" />
+        <path className="ch-draw" style={d(0)} pathLength={1} d={`M56 ${y(M.medCmp)} H500`} stroke="var(--chalk-dim)" strokeDasharray="5 4" />
+        <text className="ch-fade" style={d(14)} x="496" y="40" textAnchor="end" fontFamily={mono} fontSize="10" fill="var(--turf)">high pressure, few completions</text>
+        <text className="ch-fade" style={d(14)} x="62" y="40" fontFamily={mono} fontSize="10" fill="#6FA8DC">bend, don&apos;t break</text>
+        <text className="ch-fade" style={d(14)} x="496" y="358" textAnchor="end" fontFamily={mono} fontSize="10" fill="var(--lamp)">pressure, but still beaten</text>
+        <text className="ch-fade" style={d(14)} x="62" y="358" fontFamily={mono} fontSize="10" fill="var(--flag)">little pressure, many completions</text>
+        {sorted.map((t, i) => (
+          <g key={t.team} className="ch-pop" style={d(2 + i * 0.25)}>
+            <circle cx={x(t.pressure)} cy={y(t.cmp)} r="5.5" fill={quadColor(t)} />
+            <text x={x(t.pressure) + (TEAM_POS[t.team]?.[0] ?? 8)} y={y(t.cmp) + (TEAM_POS[t.team]?.[1] ?? 3.5)} textAnchor={TEAM_POS[t.team]?.[2] ?? "start"} fontFamily={mono} fontSize="9.5" fill="var(--chalk)">{t.team}</text>
+          </g>
+        ))}
+        <text x="278" y="398" textAnchor="middle" fontFamily={mono} fontSize="9.5" fill="var(--chalk-faint)">average catch-point pressure generated →</text>
+        <text x="12" y="196" transform="rotate(-90 12 196)" textAnchor="middle" fontFamily={mono} fontSize="9.5" fill="var(--chalk-faint)">completion rate allowed (lower is better) →</text>
+      </svg>
+    </>
+  );
+}
+
+export function DefDroe() {
+  const T = [...data.defTeams].sort((a, b) => b.droe - a.droe);
+  const z = 270;
+  const x = (v: number) => z + v * 2600; // ±0.07 → ±182
+  return (
+    <svg viewBox="0 0 520 700" role="img" aria-label={`DROE for all 32 defenses, from ${T[0].team} at +${(T[0].droe * 100).toFixed(1)} points to ${T[T.length - 1].team} at ${(T[T.length - 1].droe * 100).toFixed(1)}`}>
+      {[-0.06, -0.03, 0, 0.03].map((t) => (
+        <g key={t}>
+          <path d={`M${x(t)} 14 V666`} stroke={t === 0 ? "var(--chalk-faint)" : "var(--rule)"} strokeDasharray={t === 0 ? "" : "2 4"} />
+          <text x={x(t)} y="684" textAnchor="middle" fontFamily={mono} fontSize="10" fill="var(--chalk-faint)">{t > 0 ? "+" : ""}{(t * 100).toFixed(0)}</text>
+        </g>
+      ))}
+      {T.map((t, i) => {
+        const yy = 20 + i * 20.3;
+        const pos = t.droe >= 0;
+        const top = i < 5;
+        return (
+          <g key={t.team}>
+            <text x={pos ? z - 8 : z + 8} y={yy + 4} textAnchor={pos ? "end" : "start"} fontFamily={mono} fontSize="10" fill={top ? "var(--chalk)" : "var(--chalk-dim)"}>{t.team}</text>
+            <rect
+              className="ch-bx"
+              style={{ ...d(i * 0.35), transformOrigin: pos ? "left center" : "right center" }}
+              x={pos ? z : x(t.droe)}
+              y={yy - 6}
+              width={Math.max(1.5, Math.abs(x(t.droe) - z))}
+              height="12"
+              rx="2"
+              fill={pos ? "var(--turf)" : "var(--flag)"}
+              opacity={top ? 1 : 0.7}
+            />
+            <text className="ch-fade" style={d(i * 0.35 + 4)} x={pos ? x(t.droe) + 6 : x(t.droe) - 6} y={yy + 4} textAnchor={pos ? "start" : "end"} fontFamily={mono} fontSize="9.5" fill="var(--chalk-dim)">
+              {pos ? "+" : ""}{(t.droe * 100).toFixed(1)}
+            </text>
+          </g>
+        );
+      })}
+      <text x={z} y="700" textAnchor="middle" fontFamily={mono} fontSize="9.5" fill="var(--chalk-faint)">percentage points of completions prevented beyond expectation</text>
+    </svg>
+  );
+}

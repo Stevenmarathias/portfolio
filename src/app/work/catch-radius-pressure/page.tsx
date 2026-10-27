@@ -22,7 +22,7 @@ export default function Page() {
       ]}
       links={[
         { href: "https://github.com/Stevenmarathias/catch-radius-pressure", label: "Code" },
-        { href: "https://github.com/Stevenmarathias/nfl-defense-rankings", label: "Defense rankings" },
+        { href: "/work/defense-rankings", label: "Defense rankings" },
       ]}
       glance={{
         problem: "Two receivers with the same catch rate can have very different seasons. Standard stats can't tell the wide-open catch from the contested one.",
@@ -102,7 +102,7 @@ export default function Page() {
           <CrpArchetypes />
         </ChartFig>
         <h3>Defenses</h3>
-        <p>By DROE, Dallas, Cleveland, Kansas City, the Rams and Pittsburgh allowed the fewest completions relative to the pressure they created. Miami and the Jets created the most catch-point pressure overall.</p>
+        <p>By DROE, Dallas, Cleveland, Kansas City, the Rams and Pittsburgh allowed the fewest completions relative to the pressure they created. Miami and the Jets created the most catch-point pressure overall. The full 32-team breakdown is in <a href="/work/defense-rankings">NFL Pass Defense Rankings</a>.</p>
         <p>All of it now runs live on <a href="/work/catch-point-analytics">Catch Point Analytics</a>.</p>
       </Section>
 

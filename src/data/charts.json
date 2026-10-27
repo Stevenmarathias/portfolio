@@ -800,5 +800,334 @@
     "label": false
    }
   ]
+ },
+ "defTeams": [
+  {
+   "team": "MIA",
+   "plays": 424,
+   "pressure": 0.2493,
+   "cmp": 0.7429,
+   "exp": 0.6971,
+   "droe": -0.0458,
+   "epa": 0.3506,
+   "prank": 1
+  },
+  {
+   "team": "NYJ",
+   "plays": 372,
+   "pressure": 0.2489,
+   "cmp": 0.6694,
+   "exp": 0.6934,
+   "droe": 0.0241,
+   "epa": 0.2306,
+   "prank": 2
+  },
+  {
+   "team": "WAS",
+   "plays": 454,
+   "pressure": 0.2479,
+   "cmp": 0.7159,
+   "exp": 0.695,
+   "droe": -0.0209,
+   "epa": 0.5052,
+   "prank": 3
+  },
+  {
+   "team": "CIN",
+   "plays": 440,
+   "pressure": 0.2447,
+   "cmp": 0.7136,
+   "exp": 0.6985,
+   "droe": -0.0152,
+   "epa": 0.4417,
+   "prank": 4
+  },
+  {
+   "team": "HOU",
+   "plays": 423,
+   "pressure": 0.2414,
+   "cmp": 0.7258,
+   "exp": 0.7033,
+   "droe": -0.0225,
+   "epa": 0.4041,
+   "prank": 5
+  },
+  {
+   "team": "KC",
+   "plays": 387,
+   "pressure": 0.2386,
+   "cmp": 0.6615,
+   "exp": 0.7017,
+   "droe": 0.0402,
+   "epa": 0.2449,
+   "prank": 6
+  },
+  {
+   "team": "NO",
+   "plays": 432,
+   "pressure": 0.232,
+   "cmp": 0.6644,
+   "exp": 0.7016,
+   "droe": 0.0372,
+   "epa": 0.2235,
+   "prank": 7
+  },
+  {
+   "team": "NYG",
+   "plays": 435,
+   "pressure": 0.2295,
+   "cmp": 0.7011,
+   "exp": 0.7027,
+   "droe": 0.0016,
+   "epa": 0.2976,
+   "prank": 8
+  },
+  {
+   "team": "ARI",
+   "plays": 378,
+   "pressure": 0.2295,
+   "cmp": 0.7646,
+   "exp": 0.6985,
+   "droe": -0.0661,
+   "epa": 0.5255,
+   "prank": 9
+  },
+  {
+   "team": "BAL",
+   "plays": 466,
+   "pressure": 0.2289,
+   "cmp": 0.6781,
+   "exp": 0.695,
+   "droe": 0.0169,
+   "epa": 0.2018,
+   "prank": 10
+  },
+  {
+   "team": "PHI",
+   "plays": 514,
+   "pressure": 0.2242,
+   "cmp": 0.6868,
+   "exp": 0.6982,
+   "droe": 0.0115,
+   "epa": 0.3247,
+   "prank": 11
+  },
+  {
+   "team": "ATL",
+   "plays": 420,
+   "pressure": 0.2225,
+   "cmp": 0.6881,
+   "exp": 0.7,
+   "droe": 0.0119,
+   "epa": 0.3255,
+   "prank": 12
+  },
+  {
+   "team": "DAL",
+   "plays": 382,
+   "pressure": 0.2168,
+   "cmp": 0.6571,
+   "exp": 0.7075,
+   "droe": 0.0504,
+   "epa": 0.2537,
+   "prank": 13
+  },
+  {
+   "team": "JAX",
+   "plays": 464,
+   "pressure": 0.2142,
+   "cmp": 0.7155,
+   "exp": 0.7073,
+   "droe": -0.0082,
+   "epa": 0.2645,
+   "prank": 14
+  },
+  {
+   "team": "DET",
+   "plays": 462,
+   "pressure": 0.2123,
+   "cmp": 0.7165,
+   "exp": 0.7038,
+   "droe": -0.0127,
+   "epa": 0.4266,
+   "prank": 15
+  },
+  {
+   "team": "PIT",
+   "plays": 436,
+   "pressure": 0.2113,
+   "cmp": 0.6674,
+   "exp": 0.7057,
+   "droe": 0.0382,
+   "epa": 0.3627,
+   "prank": 16
+  },
+  {
+   "team": "NE",
+   "plays": 436,
+   "pressure": 0.2111,
+   "cmp": 0.711,
+   "exp": 0.7045,
+   "droe": -0.0065,
+   "epa": 0.2952,
+   "prank": 17
+  },
+  {
+   "team": "CLE",
+   "plays": 377,
+   "pressure": 0.2052,
+   "cmp": 0.6631,
+   "exp": 0.707,
+   "droe": 0.0439,
+   "epa": 0.187,
+   "prank": 18
+  },
+  {
+   "team": "CAR",
+   "plays": 350,
+   "pressure": 0.2036,
+   "cmp": 0.7057,
+   "exp": 0.7051,
+   "droe": -0.0006,
+   "epa": 0.3181,
+   "prank": 19
+  },
+  {
+   "team": "BUF",
+   "plays": 403,
+   "pressure": 0.2005,
+   "cmp": 0.7469,
+   "exp": 0.7097,
+   "droe": -0.0371,
+   "epa": 0.2673,
+   "prank": 20
+  },
+  {
+   "team": "SF",
+   "plays": 464,
+   "pressure": 0.1989,
+   "cmp": 0.7241,
+   "exp": 0.712,
+   "droe": -0.0121,
+   "epa": 0.2642,
+   "prank": 21
+  },
+  {
+   "team": "TB",
+   "plays": 476,
+   "pressure": 0.1979,
+   "cmp": 0.7122,
+   "exp": 0.7098,
+   "droe": -0.0024,
+   "epa": 0.3378,
+   "prank": 22
+  },
+  {
+   "team": "LAR",
+   "plays": 473,
+   "pressure": 0.1958,
+   "cmp": 0.6723,
+   "exp": 0.7117,
+   "droe": 0.0394,
+   "epa": 0.2757,
+   "prank": 23
+  },
+  {
+   "team": "LAC",
+   "plays": 467,
+   "pressure": 0.1958,
+   "cmp": 0.6959,
+   "exp": 0.7129,
+   "droe": 0.017,
+   "epa": 0.3835,
+   "prank": 24
+  },
+  {
+   "team": "CHI",
+   "plays": 475,
+   "pressure": 0.1941,
+   "cmp": 0.72,
+   "exp": 0.7154,
+   "droe": -0.0046,
+   "epa": 0.2823,
+   "prank": 25
+  },
+  {
+   "team": "TEN",
+   "plays": 421,
+   "pressure": 0.1912,
+   "cmp": 0.7411,
+   "exp": 0.7139,
+   "droe": -0.0272,
+   "epa": 0.419,
+   "prank": 26
+  },
+  {
+   "team": "SEA",
+   "plays": 439,
+   "pressure": 0.1887,
+   "cmp": 0.7221,
+   "exp": 0.7163,
+   "droe": -0.0058,
+   "epa": 0.3959,
+   "prank": 27
+  },
+  {
+   "team": "GB",
+   "plays": 412,
+   "pressure": 0.1857,
+   "cmp": 0.7257,
+   "exp": 0.7193,
+   "droe": -0.0064,
+   "epa": 0.3889,
+   "prank": 28
+  },
+  {
+   "team": "IND",
+   "plays": 416,
+   "pressure": 0.1852,
+   "cmp": 0.7091,
+   "exp": 0.7161,
+   "droe": 0.007,
+   "epa": 0.3601,
+   "prank": 29
+  },
+  {
+   "team": "DEN",
+   "plays": 443,
+   "pressure": 0.1813,
+   "cmp": 0.7246,
+   "exp": 0.7213,
+   "droe": -0.0033,
+   "epa": 0.4057,
+   "prank": 30
+  },
+  {
+   "team": "LV",
+   "plays": 399,
+   "pressure": 0.1626,
+   "cmp": 0.7343,
+   "exp": 0.724,
+   "droe": -0.0104,
+   "epa": 0.3666,
+   "prank": 31
+  },
+  {
+   "team": "MIN",
+   "plays": 430,
+   "pressure": 0.1538,
+   "cmp": 0.7512,
+   "exp": 0.7334,
+   "droe": -0.0177,
+   "epa": 0.3795,
+   "prank": 32
+  }
+ ],
+ "defMeta": {
+  "medPressure": 0.2112,
+  "medCmp": 0.7129,
+  "corrDroeEpa": -0.638,
+  "corrPressCmp": -0.325,
+  "plays": 13770
  }
 }

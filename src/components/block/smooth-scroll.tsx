@@ -50,6 +50,8 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       }
     };
 
+    // a new page always starts at the top: drop any glide left over from the previous page
+    if (!window.location.hash) window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     void update();
     preference.addEventListener("change", update);
     return () => {
