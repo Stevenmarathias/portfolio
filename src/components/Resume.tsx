@@ -1,3 +1,5 @@
+import TimelineRail from "@/components/TimelineRail";
+
 // Résumé timeline. Each row opens to the full résumé detail using native <details>, so it works without JavaScript
 // and with the keyboard. Copy comes from Steven's résumé.
 
@@ -107,7 +109,7 @@ const groups = [
 export default function Resume() {
   return (
     <>
-      <div className="timeline">
+      <TimelineRail>
         {entries.map((e) => (
           <details className="tl" key={e.title + e.yr}>
             <summary>
@@ -125,7 +127,7 @@ export default function Resume() {
             </ul>
           </details>
         ))}
-      </div>
+      </TimelineRail>
       <div className="more-groups">
         {groups.map((g) => (
           <details className="more" key={g.title}>

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import Hero from "@/components/Hero";
 import CountUp from "@/components/CountUp";
 import Coursework from "@/components/Coursework";
+import WorkScroll from "@/components/WorkScroll";
 import Resume from "@/components/Resume";
 import CopyEmail from "@/components/CopyEmail";
 import Arrow from "@/components/Arrow";
@@ -29,69 +29,56 @@ export default function Home() {
           <p className="intro">A new metric, a product built on top of it, an AI tool, and a family business with real lab data. Every chart uses the project&apos;s actual numbers. Click through for the full story.</p>
         </div>
 
-        <div className="work-list">
-          <Link className="work" href="/work/catch-radius-pressure" data-reveal>
-            <div className="work-text">
-              <div className="work-num"><span className="pill live-pill">Research</span><span className="pill">Big Data Bowl 2026</span></div>
-              <h3>Catch Radius Pressure</h3>
-              <p>A new NFL metric for how much defensive pressure a receiver faces at the catch point, built from defender proximity and closing speed on every 2023 pass.</p>
-              <p className="result"><span className="result-k">Result</span>Adding receiver leverage lifted the catch model&apos;s test AUC from 0.793 to 0.855 and cut log loss 19%.</p>
-              <div className="tags"><span>Python</span><span>scikit-learn</span><span>Tracking data</span></div>
-              <span className="read">Read the case study <Arrow /></span>
-            </div>
-            <div className="work-viz">
-              <p className="viz-label">Catch model · test AUC by version</p>
-              <AucChart />
-            </div>
-          </Link>
-
-          <Link className="work" href="/work/catch-point-analytics" data-reveal>
-            <div className="work-text">
-              <div className="work-num"><span className="pill live-pill">Live</span><span className="pill">Solo build</span></div>
-              <h3>Catch Point Analytics</h3>
-              <p>A public NFL stats site with CRP built in: win-probability replays, starting lineups drawn in real formation, and player pages for every game since 1999.</p>
-              <p className="result"><span className="result-k">Result</span>ETL from ESPN and other sources matches about 99% of 22,500+ starter records to unique player IDs.</p>
-              <div className="tags"><span>React</span><span>FastAPI</span><span>DuckDB</span><span>ETL</span></div>
-              <span className="read">Read the case study <Arrow /></span>
-            </div>
-            <div className="work-viz">
-              <p className="viz-label">Game page · starting offense in formation</p>
-              <Formation />
-            </div>
-          </Link>
-
-          <Link className="work" href="/work/sentry" data-reveal>
-            <div className="work-text">
-              <div className="work-num"><span className="pill wip">Working prototype</span><span className="pill">Startup track</span></div>
-              <h3>Sentry</h3>
-              <p>An AI study tool that records a lecture, transcribes it with Whisper, and uses Claude to turn it into a summary, a quiz and an explorable concept map.</p>
-              <p className="result"><span className="result-k">Result</span>Deployed as a Flask web app; next step is testing demand with classmates.</p>
-              <div className="tags"><span>Flask</span><span>Claude API</span><span>Whisper</span><span>D3.js</span></div>
-              <span className="read">Read the case study <Arrow /></span>
-            </div>
-            <div className="work-viz">
-              <p className="viz-label">What one lecture becomes</p>
-              <SentryFlow />
-            </div>
-          </Link>
-
-          <Link className="work" href="/work/elaion" data-reveal>
-            <div className="work-text">
-              <div className="work-num"><span className="pill live-pill">Ongoing</span><span className="pill">Marketing analytics</span></div>
-              <h3>Elaion Olive Oil</h3>
-              <p>Growth for my family&apos;s single-estate organic olive oil from Kalamata, Greece: lab data turned into customer-facing charts, a site rebuild, and wholesale outreach.</p>
-              <p className="result"><span className="result-k">Result</span>Every freshness marker sits inside the extra virgin limits, and the charts show shoppers exactly where.</p>
-              <div className="tags"><span>Chart.js</span><span>Brand strategy</span><span>B2B outreach</span></div>
-              <span className="read">Read the case study <Arrow /></span>
-            </div>
-            <div className="work-viz">
-              <p className="viz-label">2025–26 harvest · lab results</p>
-              <div className="big-num">335<small>mg/kg polyphenols</small></div>
-              <p className="viz-label" style={{ marginTop: 22 }}>Share of extra virgin limit used</p>
-              <ElaionMeters />
-            </div>
-          </Link>
-        </div>
+        <WorkScroll
+          items={[
+            {
+              href: "/work/catch-radius-pressure",
+              title: "Catch Radius Pressure",
+              pills: <><span className="pill live-pill">Research</span><span className="pill">Big Data Bowl 2026</span></>,
+              body: "A new NFL metric for how much defensive pressure a receiver faces at the catch point, built from defender proximity and closing speed on every 2023 pass.",
+              result: "Adding receiver leverage lifted the catch model’s test AUC from 0.793 to 0.855 and cut log loss 19%.",
+              tags: ["Python", "scikit-learn", "Tracking data"],
+              vizLabel: "Catch model · test AUC by version",
+              viz: <AucChart />,
+            },
+            {
+              href: "/work/catch-point-analytics",
+              title: "Catch Point Analytics",
+              pills: <><span className="pill live-pill">Live</span><span className="pill">Solo build</span></>,
+              body: "A public NFL stats site with CRP built in: win-probability replays, starting lineups drawn in real formation, and player pages for every game since 1999.",
+              result: "ETL from ESPN and other sources matches about 99% of 22,500+ starter records to unique player IDs.",
+              tags: ["React", "FastAPI", "DuckDB", "ETL"],
+              vizLabel: "Game page · starting offense in formation",
+              viz: <Formation />,
+            },
+            {
+              href: "/work/sentry",
+              title: "Sentry",
+              pills: <><span className="pill wip">Working prototype</span><span className="pill">Startup track</span></>,
+              body: "An AI study tool that records a lecture, transcribes it with Whisper, and uses Claude to turn it into a summary, a quiz and an explorable concept map.",
+              result: "Deployed as a Flask web app; next step is testing demand with classmates.",
+              tags: ["Flask", "Claude API", "Whisper", "D3.js"],
+              vizLabel: "What one lecture becomes",
+              viz: <SentryFlow />,
+            },
+            {
+              href: "/work/elaion",
+              title: "Elaion Olive Oil",
+              pills: <><span className="pill live-pill">Ongoing</span><span className="pill">Marketing analytics</span></>,
+              body: "Growth for my family’s single-estate organic olive oil from Kalamata, Greece: lab data turned into customer-facing charts, a site rebuild, and wholesale outreach.",
+              result: "Every freshness marker sits inside the extra virgin limits, and the charts show shoppers exactly where.",
+              tags: ["Chart.js", "Brand strategy", "B2B outreach"],
+              vizLabel: "2025–26 harvest · lab results",
+              viz: (
+                <>
+                  <div className="big-num">335<small>mg/kg polyphenols</small></div>
+                  <p className="viz-label" style={{ marginTop: 22 }}>Share of extra virgin limit used</p>
+                  <ElaionMeters />
+                </>
+              ),
+            },
+          ]}
+        />
       </section>
 
       <section className="block wrap" id="about">
