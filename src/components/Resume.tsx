@@ -158,7 +158,7 @@ export default function Resume() {
           </details>
         ))}
       </TimelineRail>
-      <details className="more skills-all" open>
+      <details className="more skills-all">
         <summary>
           <h3>Skills</h3>
           <span className="more-count">{skills.reduce((n, g) => n + g.items.length, 0)} skills across {skills.length} areas</span>
