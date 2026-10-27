@@ -135,7 +135,7 @@ export default function Home() {
       <section className="contact wrap" id="contact">
         <div>
           <h2 className="display"><FlipText>{"Let’s talk"}</FlipText> <em><FlipText>data.</FlipText></em></h2>
-          <p className="intro" style={{ marginBottom: 0 }}>I&apos;m looking for analyst roles in sports, marketing and business analytics starting January 2027, in Boston or remote. Happy to talk even if you&apos;re just exploring.</p>
+          <p className="intro" style={{ marginBottom: 0 }}>I&apos;m looking for analyst roles in business, marketing and sports analytics starting January 2027, anywhere in New England or remote. Happy to talk even if you&apos;re just exploring.</p>
           <CopyEmail email="stevenm5@bu.edu" />
           <div className="social">
             <a href="https://www.linkedin.com/in/steven-marathias/" target="_blank" rel="noopener">LinkedIn <Arrow dir="out" /></a>
