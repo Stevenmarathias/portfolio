@@ -1,12 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 import Arrow from "@/components/Arrow";
 import DiscoverButton from "@/components/block/discover-button";
 
 export const cases = [
+  { slug: "elaion", title: "Elaion Olive Oil" },
   { slug: "catch-radius-pressure", title: "Catch Radius Pressure" },
   { slug: "catch-point-analytics", title: "Catch Point Analytics" },
   { slug: "sentry", title: "Sentry" },
-  { slug: "elaion", title: "Elaion Olive Oil" },
+  { slug: "coverage-shadow", title: "Coverage Shadow" },
+  { slug: "alone-exit-themes", title: "Why Survivalists Tap Out" },
+  { slug: "financial-predictor", title: "Financial Performance Predictor" },
 ];
 
 type Props = {
@@ -15,10 +19,11 @@ type Props = {
   dek: string;
   meta: [string, string][];
   links?: { href: string; label: string }[];
+  glance?: { problem: string; approach: string; outcome: string };
   children: React.ReactNode;
 };
 
-export default function CaseLayout({ slug, title, dek, meta, links, children }: Props) {
+export default function CaseLayout({ slug, title, dek, meta, links, glance, children }: Props) {
   const i = cases.findIndex((c) => c.slug === slug);
   const next = cases[(i + 1) % cases.length];
   return (
@@ -48,6 +53,15 @@ export default function CaseLayout({ slug, title, dek, meta, links, children }: 
           </dl>
         </div>
       </header>
+      {glance && (
+        <div className="wrap">
+          <dl className="glance">
+            <div><dt>Problem</dt><dd>{glance.problem}</dd></div>
+            <div><dt>Approach</dt><dd>{glance.approach}</dd></div>
+            <div><dt>Outcome</dt><dd>{glance.outcome}</dd></div>
+          </dl>
+        </div>
+      )}
       <div className="wrap case-body">{children}</div>
       <div className="wrap">
         <div className="next-case">
@@ -68,5 +82,29 @@ export function Section({ title, children }: { n?: string; title: string; childr
       <h2>{title}</h2>
       <div className="prose">{children}</div>
     </section>
+  );
+}
+
+/** A real figure from the project. Charts exported on white keep a paper frame so they read on the dark site. */
+export function Fig({
+  src,
+  alt,
+  w,
+  h,
+  caption,
+  paper = true,
+}: {
+  src: string;
+  alt: string;
+  w: number;
+  h: number;
+  caption: string;
+  paper?: boolean;
+}) {
+  return (
+    <figure className={paper ? "figure fig-paper" : "figure"}>
+      <Image src={src} alt={alt} width={w} height={h} sizes="(max-width: 860px) 100vw, 760px" />
+      <figcaption>{caption}</figcaption>
+    </figure>
   );
 }

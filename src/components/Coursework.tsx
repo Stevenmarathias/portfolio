@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { coursework } from "@/lib/coursework";
+import Link from "next/link";
 import Arrow from "@/components/Arrow";
 
 export default function Coursework() {
@@ -81,11 +82,18 @@ export default function Coursework() {
             </table>
           </div>
         )}
-        {item.link && (
-          <a className="detail-link" href={item.link} target="_blank" rel="noopener">
-            See the code <Arrow dir="out" />
-          </a>
-        )}
+        <div className="detail-links">
+          {item.caseHref && (
+            <Link className="detail-link" href={item.caseHref}>
+              Read the case study <Arrow />
+            </Link>
+          )}
+          {item.link && (
+            <a className="detail-link quiet" href={item.link} target="_blank" rel="noopener">
+              See the code <Arrow dir="out" />
+            </a>
+          )}
+        </div>
       </div>
     </>
   );

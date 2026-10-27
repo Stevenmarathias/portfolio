@@ -187,3 +187,76 @@ export function ImpactChart() {
     </svg>
   );
 }
+
+/** Catch Point Analytics data flow, left to right. */
+export function PointPipeline() {
+  const boxes = [
+    { x: 0, t: "Sources", s: ["nflverse play-by-play", "ESPN starters API", "PFR via Wayback", "CRP research outputs"] },
+    { x: 182, t: "ETL + derive", s: ["Python scrapers", "tiered lineup resolver", "slot labels, backfill", "CRP sync + derive"] },
+    { x: 364, t: "Serve", s: ["DuckDB tables", "FastAPI endpoints"] },
+    { x: 546, t: "Site", s: ["React single-page app", "game · player · leaders", "archetypes · replays"] },
+  ];
+  return (
+    <svg viewBox="0 0 700 170" role="img" aria-label="Data flows from four sources through Python ETL into DuckDB and FastAPI, then to the React site">
+      {boxes.map((b, i) => (
+        <g key={b.t}>
+          <rect x={b.x} y="10" width="154" height="150" rx="6" fill="var(--ground-3)" stroke={i === 1 ? "var(--lamp)" : "var(--rule-strong)"} />
+          <text x={b.x + 14} y="36" fontFamily={mono} fontSize="12" fill="var(--lamp)">{b.t}</text>
+          {b.s.map((line, j) => (
+            <text key={line} x={b.x + 14} y={62 + j * 22} fontFamily={mono} fontSize="10.5" fill="var(--chalk-dim)">{line}</text>
+          ))}
+          {i < boxes.length - 1 && (
+            <path d={`M${b.x + 158} 85 h20 m-6 -5 l6 5 l-6 5`} fill="none" stroke="var(--chalk-faint)" strokeWidth="1.5" />
+          )}
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+/** Price per milliliter for Elaion's two bottle sizes. */
+export function PerMl() {
+  const rows = [
+    { l: "250 mL · $30", v: 30 / 250 },
+    { l: "750 mL · $65", v: 65 / 750 },
+  ];
+  const x = (v: number) => 130 + v * 1500; // $0.12 -> 310
+  return (
+    <svg viewBox="0 0 360 120" role="img" aria-label="Price per milliliter: 12 cents for the 250 mL bottle, about 8.7 cents for the 750 mL bottle">
+      {rows.map((r, i) => (
+        <g key={r.l}>
+          <text x="0" y={34 + i * 44} fontFamily={mono} fontSize="11" fill="var(--chalk)">{r.l}</text>
+          <rect x="130" y={22 + i * 44} width={x(r.v) - 130} height="16" rx="2" fill={i === 0 ? "var(--rule-strong)" : "var(--turf)"} />
+          <text x={x(r.v) + 8} y={34 + i * 44} fontFamily={mono} fontSize="11" fill="var(--chalk)">{(r.v * 100).toFixed(1)}¢/mL</text>
+        </g>
+      ))}
+      <text x="130" y="112" fontFamily={mono} fontSize="9.5" fill="var(--chalk-faint)">price per milliliter</text>
+    </svg>
+  );
+}
+
+/** Random-forest feature importance from the Financial Performance Predictor's own training code. */
+export function FinImportance() {
+  const rows: [string, number][] = [
+    ["P/E ratio", 0.298],
+    ["Return on equity", 0.231],
+    ["ROA, prior year", 0.134],
+    ["Earnings growth", 0.116],
+    ["Company size (log assets)", 0.093],
+    ["Price-to-sales", 0.076],
+    ["Debt ratio", 0.053],
+  ];
+  const x = (v: number) => 186 + v * 500; // 0.30 -> 336
+  return (
+    <svg viewBox="0 0 400 230" role="img" aria-label="Feature importance: P/E ratio 0.298, return on equity 0.231, prior-year ROA 0.134, earnings growth 0.116, log assets 0.093, price-to-sales 0.076, debt ratio 0.053">
+      {rows.map(([l, v], i) => (
+        <g key={l}>
+          <text x="0" y={22 + i * 28} fontFamily={mono} fontSize="10.5" fill="var(--chalk)">{l}</text>
+          <rect x="186" y={11 + i * 28} width={x(v) - 186} height="14" rx="2" fill={i < 2 ? "var(--lamp)" : "var(--turf)"} opacity={i < 2 ? 1 : 0.8} />
+          <text x={x(v) + 6} y={22 + i * 28} fontFamily={mono} fontSize="10.5" fill="var(--chalk-dim)">{v.toFixed(3)}</text>
+        </g>
+      ))}
+      <text x="186" y="222" fontFamily={mono} fontSize="9.5" fill="var(--chalk-faint)">random forest importance</text>
+    </svg>
+  );
+}

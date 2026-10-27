@@ -4,6 +4,7 @@ export type CourseProject = {
   who: string;
   body: string;
   link?: string;
+  caseHref?: string;
   table?: { head: string[]; rows: string[][] };
 };
 
@@ -12,7 +13,9 @@ export const coursework: CourseProject[] = [
     course: "BA870 · Financial Analytics",
     title: "Financial Performance Predictor",
     who: "Team · built the dashboard",
-    body: "I built the interactive dashboard section of our team's predictor, combining WRDS Compustat fundamentals with live Yahoo Finance data and deploying it on Streamlit. Along the way I fixed a units mismatch between the two sources (raw dollars vs. millions) and a model-loading incompatibility by retraining at startup.",
+    body: "Predicts whether any US company's return on assets will improve next year. I built the live Streamlit dashboard: it rebuilds the model's seven features from Yahoo Finance to match WRDS Compustat, flags estimated inputs, and shows the prediction alongside price, industry and model charts. The classifier reached 62% balanced accuracy on held-out years.",
+    link: "https://github.com/Stevenmarathias/financial-analytics-dashboard",
+    caseHref: "/work/financial-predictor",
   },
   {
     course: "BA860 · Marketing Analytics",
@@ -37,8 +40,9 @@ export const coursework: CourseProject[] = [
     course: "BA820 · Unsupervised ML",
     title: "Alone: Why Survivalists Tap Out",
     who: "Team of 4 · led exit-theme analysis",
-    body: "On a four-person team studying the survival show Alone, I owned the question of why contestants leave. The tap-out reasons are only 3 to 4 words on average, so I compared TF-IDF topic models (NMF and LDA, unigrams vs. bigrams) against sentence embeddings (all-MiniLM-L6-v2) clustered with KMeans, picked K=5 by silhouette (0.88), dropped a cluster that turned out to be empty text, and checked stability across seeds. The result is a five-theme exit taxonomy linked back to days lasted.",
+    body: "On a four-person team studying the survival show Alone, I owned the question of why contestants leave. The tap-out notes average under four words, so keyword topic models (NMF and LDA) struggled. I switched to sentence embeddings (all-MiniLM-L6-v2) clustered with KMeans, removed a fake cluster made of empty notes, and labeled five exit themes for the 84 contestants with a recorded reason, then compared them with how long people lasted.",
     link: "https://github.com/MikaIsmayilov/B02_Alone_TVShow_Unsupervised_Project",
+    caseHref: "/work/alone-exit-themes",
     table: {
       head: ["Exit theme", "Exits", "Share", "Avg days"],
       rows: [
@@ -62,6 +66,7 @@ export const coursework: CourseProject[] = [
     who: "Solo · NFL defensive metric",
     body: "A tracking metric for how much catch window a defender takes away at the moment of release, built on 14,107 plays from the 2023 Big Data Bowl data. Throws into the top quartile of Shadow were completed 62.5% of the time versus 75.0% in the bottom quartile. I also pre-registered stability and predictive tests: average Shadow is about as repeatable as completion % allowed (split-half r = 0.43), but it doesn't forecast future coverage results, so I report it as a measure of involvement rather than quality.",
     link: "https://github.com/Stevenmarathias/coverage-shadow",
+    caseHref: "/work/coverage-shadow",
     table: {
       head: ["Closest-defender Shadow", "Throws", "Completion %"],
       rows: [

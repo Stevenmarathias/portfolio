@@ -374,3 +374,23 @@ html.js .ws-item:not(.on) { opacity: .32; }
 @media (max-width: 640px) { .dock-item.desk-only { display: none; } .dock-group:has(> .desk-only:only-child) { display: none; } .dock-group:has(> .desk-only:only-child) + .dock-group { border-left: 0; padding-left: 0; margin-left: 0; } .dock-group + .dock-group { margin-left: 2px; padding-left: 6px; } }
 @media (prefers-reduced-motion: reduce) { .dock, .dock-item, .dock-marker, .dock-tip { transition: none; } }
 .footer .wrap { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+
+/* ── case study: at a glance + real figures ── */
+.glance { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin: 48px 0 0; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.glance div { background: var(--ground-2); padding: 24px 24px 26px; }
+.glance dt { font-family: var(--display); font-weight: 800; font-size: .9rem; letter-spacing: .12em; text-transform: uppercase; color: var(--lamp); }
+.glance dd { margin: 8px 0 0; color: var(--chalk); font-size: 1.02rem; line-height: 1.55; }
+@media (max-width: 860px) { .glance { grid-template-columns: 1fr; } }
+.figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
+.fig-paper { background: #F6F7F9; border-color: transparent; }
+.fig-paper figcaption { color: #4A5568; }
+.prose h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.3rem; letter-spacing: .02em; color: var(--chalk); margin: 28px 0 10px; }
+.prose table { width: 100%; border-collapse: collapse; font-size: .98rem; margin: 6px 0 22px; }
+.prose th { font-family: var(--display); font-weight: 700; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--chalk-faint); text-align: left; padding: 8px 14px 8px 0; border-bottom: 1px solid var(--rule-strong); }
+.prose td { padding: 8px 14px 8px 0; border-bottom: 1px solid var(--rule); color: var(--chalk-dim); font-variant-numeric: tabular-nums; }
+.prose td.num, .prose th.num { text-align: right; }
+.table-wrap { overflow-x: auto; }
+.detail-links { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 10px; }
+.detail-links .detail-link { margin-top: 0; }
+.detail-link.quiet { color: var(--chalk-dim); }
+.detail-link.quiet:hover { color: var(--lamp); }
