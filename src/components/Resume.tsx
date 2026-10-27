@@ -84,17 +84,47 @@ const entries: Entry[] = [
   },
 ];
 
-const groups = [
+// Every skill here is backed by a job, project or course on this site.
+const skills: { area: string; items: string[] }[] = [
   {
-    title: "Skills",
-    count: "Programming, modeling and tools",
-    rows: [
-      ["Programming & data", "Python (pandas, NumPy, scikit-learn, matplotlib), SQL (PostgreSQL, BigQuery, DuckDB), Git and GitHub, Linux"],
-      ["Analytics & modeling", "Predictive modeling, model evaluation, A/B testing and causal inference, statistical testing, clustering, pricing and competitor analysis"],
-      ["Building & visualization", "FastAPI, Flask, React, Next.js, Streamlit, ETL pipelines, D3.js, Chart.js, Tableau, Claude API, Whisper"],
-      ["Data sources", "NFL tracking data and nflverse, ESPN API, WRDS Compustat, yfinance, SPSS, Excel"],
-    ],
+    area: "Programming & data",
+    items: ["Python", "pandas", "NumPy", "scikit-learn", "SQL", "PostgreSQL", "BigQuery", "DuckDB", "Jupyter / Colab", "Git & GitHub", "Linux"],
   },
+  {
+    area: "Machine learning",
+    items: ["Random forests", "Gradient boosting", "Logistic & ridge regression", "Two-stage (hurdle) models", "Clustering (KMeans)", "Dimensionality reduction (SVD)", "Cross-validation", "Probability calibration", "Feature importance", "Model evaluation (AUC, log loss)"],
+  },
+  {
+    area: "Statistics & experimentation",
+    items: ["A/B testing", "Causal inference", "Difference-in-differences", "Power analysis", "Reliability testing", "Bootstrapping", "Hypothesis testing", "Pre-registered analysis"],
+  },
+  {
+    area: "NLP & AI",
+    items: ["Text analysis (TF-IDF)", "Topic modeling (NMF, LDA)", "Sentence embeddings", "Claude API", "Whisper transcription", "Generative AI products", "AI coding agents"],
+  },
+  {
+    area: "Business & marketing analytics",
+    items: ["Pricing & competitor analysis", "Financial & vendor analysis", "Financial statement ratios", "Marketing analytics", "Attribution modeling", "Survey research & SPSS", "Requirements gathering", "Stakeholder reporting", "Wholesale & B2B outreach"],
+  },
+  {
+    area: "Data engineering & apps",
+    items: ["ETL pipelines", "Web scraping", "REST APIs", "FastAPI", "Flask", "Streamlit", "React", "Next.js", "Deployment (Vercel, Render, Fly.io)"],
+  },
+  {
+    area: "Visualization & BI",
+    items: ["Tableau", "Excel", "Plotly", "matplotlib", "D3.js", "Chart.js", "Interactive dashboards", "Data storytelling"],
+  },
+  {
+    area: "Data sources",
+    items: ["NFL player tracking (Big Data Bowl)", "nflverse", "ESPN API", "WRDS Compustat", "Yahoo Finance", "Inside Airbnb"],
+  },
+  {
+    area: "IT & security",
+    items: ["Network & hardware troubleshooting", "OS configuration", "Security fundamentals"],
+  },
+];
+
+const groups = [
   {
     title: "Certifications & activities",
     count: "2 certifications · 1 conference",
@@ -128,6 +158,23 @@ export default function Resume() {
           </details>
         ))}
       </TimelineRail>
+      <details className="more skills-all" open>
+        <summary>
+          <h3>Skills</h3>
+          <span className="more-count">{skills.reduce((n, g) => n + g.items.length, 0)} skills across {skills.length} areas</span>
+          <span className="tl-toggle" aria-hidden="true" />
+        </summary>
+        <div className="skill-grid">
+          {skills.map((g) => (
+            <div key={g.area}>
+              <h4>{g.area}</h4>
+              <ul className="skill-tags">
+                {g.items.map((it) => <li key={it}>{it}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </details>
       <div className="more-groups">
         {groups.map((g) => (
           <details className="more" key={g.title}>
