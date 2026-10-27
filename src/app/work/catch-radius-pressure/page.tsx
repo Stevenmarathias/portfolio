@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import CaseLayout, { Fig, Section } from "@/components/CaseLayout";
+import CaseLayout, { ChartFig, Section } from "@/components/CaseLayout";
+import { CrpArchetypes, CrpImportance, CrpLeverage, CrpPresnap, CrpTiers } from "@/components/anim-charts";
 import { AucChart } from "@/components/charts";
 
 export const metadata: Metadata = {
@@ -43,28 +44,18 @@ export default function Page() {
         <p>At the ball&apos;s arrival frame, every defender within <strong>3 yards</strong> of the landing spot adds pressure. Closer defenders add more, and so do defenders still closing on the ball:</p>
         <p><strong>CRP = Σ (1 − distance / 3) × (1 + closing speed)</strong></p>
         <p>Most throws face no one: <strong>57% of plays score zero</strong>, and only 3.7% score above 1.0. When pressure does show up, it matters. Completion rate falls from <strong>79.6%</strong> on open throws to <strong>37.5%</strong> in the extreme tier.</p>
-        <Fig
-          src="/work/crp/crp-vs-completion.webp"
-          alt="Bar chart: completion rate falls steadily as Catch Radius Pressure rises, from about 78% in the lowest bin to about 23% in the highest"
-          w={1334}
-          h={734}
-          paper={false}
-          caption="Completion rate by pressure bin. Each step up in pressure costs completions, which is the signal the rest of the project builds on."
-        />
+        <ChartFig caption="Completion rate by pressure tier, all 14,108 plays. Each step up in pressure costs completions, which is the signal the rest of the project builds on.">
+          <CrpTiers />
+        </ChartFig>
         <p>I rolled it up two ways. <strong>CROE</strong> (catch rate over expected) credits receivers for catching more than the pressure they faced would predict. <strong>DROE</strong> does the same for team defenses: completions allowed versus what their pressure should have produced.</p>
       </Section>
 
       <Section title="Can you see pressure coming?">
         <p>My practicum instructor pushed for a predictive layer. Since 57% of plays have zero pressure, a single regression would mostly learn to predict zero, so I built a <strong>two-stage hurdle model</strong>. Stage A predicts whether a throw gets contested at all. Stage B predicts how severe the pressure is when it does.</p>
         <p>The key design choice was <strong>timing</strong>. I ran both stages twice: once with only what&apos;s knowable before the snap (alignment, cushion, personnel), and once with what&apos;s knowable when the ball is thrown. Features were gated by when they become known, so nothing from the future leaked in.</p>
-        <Fig
-          src="/work/crp/presnap-vs-throw.webp"
-          alt="Two line charts: Stage A AUC rises from 0.608 pre-snap to 0.811 at the throw; composite R squared rises from 0.031 to 0.253"
-          w={1600}
-          h={756}
-          paper={false}
-          caption="Held-out weeks 17–18 (1,559 plays). Before the snap, the model barely beats a coin flip at spotting contested throws. At the throw, it's strong."
-        />
+        <ChartFig caption="Held-out weeks 17–18 (1,559 plays). Before the snap, the model barely beats the no-skill floor at spotting contested throws. At the throw, it's strong.">
+          <CrpPresnap />
+        </ChartFig>
         <div className="table-wrap">
           <table>
             <thead><tr><th>Test set</th><th className="num">Pre-snap</th><th className="num">At throw</th></tr></thead>
@@ -77,14 +68,9 @@ export default function Page() {
           </table>
         </div>
         <p>One feature carries most of the at-throw signal: <strong>how far the nearest defender is from the receiver when the ball is released</strong>. In plain terms, pressure is mostly decided after the snap, by coverage execution, not by how the defense lines up.</p>
-        <Fig
-          src="/work/crp/importance.webp"
-          alt="Permutation importance chart where distance to the nearest defender at release dwarfs every other feature"
-          w={1600}
-          h={721}
-          paper={false}
-          caption="Permutation importance for the at-throw model. Separation at release dominates; closing speed and air yards follow far behind."
-        />
+        <ChartFig caption="Permutation importance for the at-throw model. Separation at release dominates; closing speed and air yards follow far behind.">
+          <CrpImportance />
+        </ChartFig>
       </Section>
 
       <Section title="Four passes from peer feedback">
@@ -95,18 +81,13 @@ export default function Page() {
           <div><dt>Pass 3</dt><dd><strong>Split pressure at release from pressure that arrives late</strong>, and sort receivers into four archetypes with a 15-contested-target minimum.</dd></div>
           <div><dt>Pass 4</dt><dd><strong>Test the red zone.</strong> Within the same pass depth, red-zone pressure runs 1.55–1.91× midfield. But leverage already captures it: the flag moved a simple model&apos;s AUC only from 0.7874 to 0.7887 and changed the final model not at all.</dd></div>
         </dl>
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <AucChart />
           <figcaption>Catch-probability model, test AUC by version. Arrival separation alone barely moved it. Leverage lifted it to 0.855 and cut log loss 19%.</figcaption>
         </figure>
-        <Fig
-          src="/work/crp/leverage.webp"
-          alt="Line chart: catch rate climbs from about 17% at negative leverage to over 90% at high leverage"
-          w={1075}
-          h={763}
-          paper={false}
-          caption="Catch rate by receiver leverage margin, in equal-sized groups of about 690 plays. Below zero yards of leverage, most balls fall incomplete."
-        />
+        <ChartFig caption="Catch rate by receiver leverage margin, in 20 equal-sized groups of about 690 plays (13,770 completed or incomplete passes). Below zero yards of leverage, most balls fall incomplete.">
+          <CrpLeverage />
+        </ChartFig>
       </Section>
 
       <Section title="Results">
@@ -117,14 +98,9 @@ export default function Page() {
         </div>
         <h3>Receivers</h3>
         <p>The final CROE leaders were DJ Moore (+11.7 points over expected on 104 targets), Tanner Hudson and Nico Collins. The archetype quadrant is the most useful view for scouting, because it separates <strong>who gets contested often</strong> from <strong>who wins when they are</strong>.</p>
-        <Fig
-          src="/work/crp/archetypes.webp"
-          alt="Scatter plot of receivers by contested-target rate and contested CROE, split into four colored quadrants"
-          w={1321}
-          h={1006}
-          paper={false}
-          caption="Receivers with at least 15 contested targets. Michael Thomas and Puka Nacua are trusted contested winners; Amon-Ra St. Brown and Mike Evans win by separating; Quentin Johnston is contested often and rarely wins."
-        />
+        <ChartFig caption="The 64 receivers with at least 15 contested targets; dot size grows with contested targets. Michael Thomas and Puka Nacua are trusted contested winners; Amon-Ra St. Brown and Mike Evans win by separating; Quentin Johnston is contested often and rarely wins.">
+          <CrpArchetypes />
+        </ChartFig>
         <h3>Defenses</h3>
         <p>By DROE, Dallas, Cleveland, Kansas City, the Rams and Pittsburgh allowed the fewest completions relative to the pressure they created. Miami and the Jets created the most catch-point pressure overall.</p>
         <p>All of it now runs live on <a href="/work/catch-point-analytics">Catch Point Analytics</a>.</p>

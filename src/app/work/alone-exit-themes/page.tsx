@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import CaseLayout, { Fig, Section } from "@/components/CaseLayout";
+import CaseLayout, { ChartFig, Section } from "@/components/CaseLayout";
+import { AloneDays } from "@/components/anim-charts";
 
 export const metadata: Metadata = {
   title: "Why Survivalists Tap Out",
@@ -63,13 +64,9 @@ export default function Page() {
             </tbody>
           </table>
         </div>
-        <Fig
-          src="/work/alone/days-by-theme.webp"
-          alt="Box plot of days lasted by exit theme; low BMI or weight loss has the highest median at about 59 days"
-          w={839}
-          h={442}
-          caption="Days lasted by exit theme, 84 contestants with a recorded reason. Weight-loss exits cluster late; injury and illness exits can happen at any point."
-        />
+        <ChartFig caption="Average days lasted by exit theme, 84 contestants with a recorded reason. Weight-loss exits came latest; injury and illness exits came earliest on average.">
+          <AloneDays />
+        </ChartFig>
         <p>The themes line up with different kinds of exit. <strong>Weight loss</strong> looks like late-stage decline: those contestants lasted longest. <strong>Injury and illness</strong> are acute and can end a run on day one. <strong>Missing family</strong> is a non-survival reason that still ends runs, which matters for casting and preparation. This is descriptive, not causal.</p>
         <p>The themes became one of the supporting pieces of evidence in our team&apos;s final presentation.</p>
       </Section>

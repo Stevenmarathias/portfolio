@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import CaseLayout, { Fig, Section } from "@/components/CaseLayout";
+import CaseLayout, { ChartFig, Fig, Section } from "@/components/CaseLayout";
+import { CsForest, CsReliability } from "@/components/anim-charts";
 
 export const metadata: Metadata = {
   title: "Coverage Shadow",
@@ -48,13 +49,9 @@ export default function Page() {
 
       <Section title="Is it a skill? Stability">
         <p>If a number measures skill, a player&apos;s first half of the season should predict his second half. I split the 2023 season into odd and even weeks for cornerbacks and compared the two halves, with completion percentage allowed as the benchmark.</p>
-        <Fig
-          src="/work/coverage-shadow/stability.webp"
-          alt="Three scatter plots of odd-week versus even-week values for cornerbacks: average Shadow r 0.43, SOE r 0.05, completion percentage allowed r 0.44"
-          w={1600}
-          h={533}
-          caption="Split-half stability for 2023 cornerbacks. Average Shadow is about as repeatable as completion % allowed. SOE is mostly noise."
-        />
+        <ChartFig caption="Left: full-season reliability from odd-vs-even-week splits. Average Shadow is about as repeatable as completion % allowed; SOE is mostly noise. Right: average Shadow gets more reliable as sample size grows.">
+          <CsReliability />
+        </ChartFig>
         <div className="table-wrap">
           <table>
             <thead><tr><th>Metric</th><th className="num">Half-season r</th><th className="num">Full-season reliability</th><th className="num">Players</th></tr></thead>
@@ -72,13 +69,9 @@ export default function Page() {
 
       <Section title="Does it predict anything?">
         <p>Stability isn&apos;t enough; a stable number also has to forecast something. I used first-half numbers to predict second-half completion percentage allowed, in two different splits, comparing correlations with significance tests and bootstrapped intervals.</p>
-        <Fig
-          src="/work/coverage-shadow/predictive.webp"
-          alt="Forest plot comparing how well four first-half metrics predict second-half completion percentage and yards per target, with confidence intervals"
-          w={1600}
-          h={591}
-          caption="Only completion % allowed clearly forecasts itself. Shadow is not significantly worse in one split (p = 0.35) and is worse in the other (p = 0.04). Nothing forecasts yards per target."
-        />
+        <ChartFig caption="Only completion % allowed clearly forecasts itself. Shadow is not significantly worse in one split (p = 0.35) and is worse in the other (p = 0.04). Nothing forecasts yards per target.">
+          <CsForest />
+        </ChartFig>
         <p>What Shadow <em>did</em> predict was <strong>involvement</strong>: first-half Shadow forecast how often a defender was targeted in the second half (r ≈ +0.23) and how often he was the closest defender (r ≈ +0.33). The metric was capturing who is around the ball, not who wins there.</p>
       </Section>
 

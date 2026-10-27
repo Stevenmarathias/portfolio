@@ -20,7 +20,23 @@ export type WorkItem = {
 
 export default function WorkScroll({ items }: { items: WorkItem[] }) {
   const [active, setActive] = useState(0);
+  const [seen, setSeen] = useState(false);
   const refs = useRef<(HTMLElement | null)[]>([]);
+  const root = useRef<HTMLDivElement>(null);
+
+  // charts in the pinned panel only start drawing once the section is on screen
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setSeen(true);
+        io.disconnect();
+      }
+    }, { threshold: 0.15 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -36,7 +52,7 @@ export default function WorkScroll({ items }: { items: WorkItem[] }) {
   }, []);
 
   return (
-    <div className="ws">
+    <div className="ws" ref={root}>
       <div className="ws-list">
         {items.map((it, i) => (
           <article
@@ -54,7 +70,7 @@ export default function WorkScroll({ items }: { items: WorkItem[] }) {
             <p>{it.body}</p>
             <p className="result"><span className="result-k">Result</span>{it.result}</p>
             <div className="tags">{it.tags.map((t) => <span key={t}>{t}</span>)}</div>
-            <div className="ws-inline">
+            <div className="ws-inline" data-chart="">
               <p className="viz-label">{it.vizLabel}</p>
               {it.viz}
             </div>
@@ -67,7 +83,12 @@ export default function WorkScroll({ items }: { items: WorkItem[] }) {
       <div className="ws-panel">
         <div className="ws-stage">
           {items.map((it, i) => (
-            <div key={it.href} className={i === active ? "ws-viz on" : "ws-viz"} aria-hidden={i !== active}>
+            <div
+              key={it.href}
+              className={["ws-viz", i === active ? "on" : "", i === active && seen ? "play" : ""].join(" ")}
+              data-chart="manual"
+              aria-hidden={i !== active}
+            >
               <p className="viz-label">{it.vizLabel}</p>
               {it.viz}
             </div>

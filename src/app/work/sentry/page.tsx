@@ -32,7 +32,7 @@ export default function Page() {
 
       <Section title="What it does">
         <p>Point Sentry at a lecture and it produces a <strong>summary</strong>, a <strong>quiz</strong>, and a <strong>concept map</strong> you can explore as a force-directed graph. Sessions are organized by class, so a semester of lectures stays in one place, and the interface can be customized.</p>
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <SentryFlow />
           <figcaption>Three ways in: live capture from the webcam and mic, a YouTube link, or a pasted transcript. One pipeline turns each into study material.</figcaption>
         </figure>

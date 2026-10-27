@@ -108,3 +108,13 @@ export function Fig({
     </figure>
   );
 }
+
+/** A live chart that draws itself when it scrolls into view. */
+export function ChartFig({ caption, children }: { caption: string; children: React.ReactNode }) {
+  return (
+    <figure className="figure chart-fig" data-chart="">
+      {children}
+      <figcaption>{caption}</figcaption>
+    </figure>
+  );
+}

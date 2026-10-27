@@ -51,7 +51,7 @@ export default function Page() {
           </table>
         </div>
         <p>Two random forests use them: a classifier for the direction (improve or decline) and a regressor for next year&apos;s ROA. The split is by time: train on 2010–2021, test on 2022–2024. That way the model is always judged on years it hasn&apos;t seen, the way it would be used in practice.</p>
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <FinImportance />
           <figcaption>Which features the classifier leans on. Valuation (P/E) and return on equity carry the most weight; leverage carries the least.</figcaption>
         </figure>

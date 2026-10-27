@@ -1,6 +1,9 @@
+import type { CSSProperties } from "react";
+
 /* Small SVG figures drawn from each project's real numbers. Colors come from the theme tokens. */
 
-const mono = "IBM Plex Mono, monospace";
+const mono = "var(--font-mono), monospace";
+const dl = (i: number) => ({ "--i": i }) as CSSProperties;
 
 /** Catch-probability model test AUC by version. Axis 0.70–0.90. */
 export function AucChart() {
@@ -21,14 +24,14 @@ export function AucChart() {
         ))}
         <text x="215" y="162">test AUC</text>
       </g>
-      {rows.map((r) => (
+      {rows.map((r, i) => (
         <g key={r.label}>
           <text x="0" y={r.y + 4} fontSize="11" fill={r.hl ? "var(--chalk)" : "var(--chalk-dim)"} fontFamily={mono} fontWeight={r.hl ? 500 : 400}>
             {r.label}
           </text>
-          <line x1="110" y1={r.y} x2={x(r.v)} y2={r.y} stroke={r.hl ? "var(--lamp)" : "var(--rule-strong)"} strokeWidth="2" />
-          <circle cx={x(r.v)} cy={r.y} r={r.hl ? 6.5 : 5} fill={r.hl ? "var(--lamp)" : "var(--turf)"} />
-          <text x={x(r.v) + 10} y={r.y + 4} fontFamily={mono} fontSize="10.5" fill="var(--chalk)">
+          <rect className="ch-bx" style={dl(i * 2)} x="110" y={r.y - 1} width={x(r.v) - 110} height="2" fill={r.hl ? "var(--lamp)" : "var(--rule-strong)"} />
+          <circle className="ch-pop" style={dl(i * 2 + 4)} cx={x(r.v)} cy={r.y} r={r.hl ? 6.5 : 5} fill={r.hl ? "var(--lamp)" : "var(--turf)"} />
+          <text className="ch-fade" style={dl(i * 2 + 5)} x={x(r.v) + 10} y={r.y + 4} fontFamily={mono} fontSize="10.5" fill="var(--chalk)">
             {r.v.toFixed(3)}
           </text>
         </g>
@@ -46,10 +49,10 @@ export function Formation() {
   ];
   return (
     <svg viewBox="0 0 320 172" role="img" aria-label="A starting offense in formation: two receivers split wide, five linemen, a tight end, quarterback and running back">
-      <line x1="0" y1="64" x2="320" y2="64" stroke="var(--lamp)" strokeWidth="1.5" strokeDasharray="5 4" />
+      <rect className="ch-bx" x="0" y="63.25" width="320" height="1.5" fill="var(--lamp)" />
       <text x="2" y="56" fontFamily={mono} fontSize="9" fill="var(--chalk-faint)">line of scrimmage</text>
-      {boxes.map(([bx, by, w, l, hl]) => (
-        <g key={l + bx + by}>
+      {boxes.map(([bx, by, w, l, hl], i) => (
+        <g key={l + bx + by} className="ch-pop" style={dl(i * 0.6)}>
           <rect x={bx} y={by} width={w} height="24" rx="3" fill="var(--ground-2)" stroke={hl ? "var(--lamp)" : "var(--turf)"} strokeWidth="1.2" />
           <text x={bx + w / 2} y={by + 15.5} textAnchor="middle" fontFamily={mono} fontSize="9" fill="var(--chalk)">{l}</text>
         </g>
@@ -98,10 +101,10 @@ export function ShapeFix() {
     <svg viewBox="0 0 340 120" role="img" aria-label="Games with lineup shape errors fell from 1,433 to 0 after the position-aware backfill">
       <g fontFamily={mono} fontSize="11">
         <text x="0" y="34" fill="var(--chalk-dim)">Before</text>
-        <rect x="70" y="20" width="250" height="20" rx="2" fill="var(--flag)" opacity="0.8" />
+        <rect className="ch-bx" x="70" y="20" width="250" height="20" rx="2" fill="var(--flag)" opacity="0.8" />
         <text x="314" y="34" textAnchor="end" fill="var(--ground)" fontWeight="500">1,433 games</text>
         <text x="0" y="78" fill="var(--chalk)">After</text>
-        <rect x="70" y="64" width="2" height="20" fill="var(--turf)" />
+        <rect className="ch-pop" style={dl(8)} x="70" y="64" width="2" height="20" fill="var(--turf)" />
         <text x="80" y="78" fill="var(--turf)" fontWeight="500">0 games</text>
         <line x1="70" y1="10" x2="70" y2="96" stroke="var(--rule-strong)" />
         <text x="70" y="114" fill="var(--chalk-faint)" fontSize="10">games with a malformed starting lineup</text>
@@ -122,10 +125,12 @@ export function TierLadder() {
     <svg viewBox="0 0 360 196" role="img" aria-label="Four lineup source tiers in priority order: ESPN starters, PFR official starters, depth charts, play-by-play credits">
       {tiers.map(([k, d, c], i) => (
         <g key={k} transform={`translate(0 ${i * 48})`}>
+          <g className="ch-bx" style={dl(i * 1.5)}>
           <rect x="0" y="4" width="360" height="38" rx="4" fill="var(--ground-3)" stroke="var(--rule)" />
           <rect x="0" y="4" width="4" height="38" fill={c} />
           <text x="16" y="20" fontFamily={mono} fontSize="11" fill="var(--chalk)">{i + 1}. {k}</text>
           <text x="16" y="35" fontFamily={mono} fontSize="9.5" fill="var(--chalk-dim)">{d}</text>
+          </g>
         </g>
       ))}
     </svg>
@@ -140,12 +145,12 @@ export function RedZone() {
         <text x="0" y="22" fill="var(--chalk-faint)" fontSize="10">relative to midfield (= 1×)</text>
         <text x="0" y="56" fill="var(--chalk-dim)">CRP</text>
         <rect x="90" y="44" width="100" height="18" fill="var(--rule-strong)" />
-        <rect x="190" y="44" width="50" height="18" fill="var(--lamp)" opacity="0.45" />
-        <rect x="190" y="44" width="100" height="18" fill="none" stroke="var(--lamp)" strokeDasharray="3 3" />
+        <rect className="ch-bx" style={dl(1)} x="190" y="44" width="50" height="18" fill="var(--lamp)" opacity="0.45" />
+        <rect className="ch-bx" style={dl(2)} x="190" y="44" width="100" height="18" fill="none" stroke="var(--lamp)" strokeDasharray="3 3" />
         <text x="296" y="57" fill="var(--chalk)">1.5–2×</text>
         <text x="0" y="96" fill="var(--chalk-dim)">Contested</text>
         <rect x="90" y="84" width="100" height="18" fill="var(--rule-strong)" />
-        <rect x="190" y="84" width="100" height="18" fill="var(--lamp)" opacity="0.75" />
+        <rect className="ch-bx" style={dl(4)} x="190" y="84" width="100" height="18" fill="var(--lamp)" opacity="0.75" />
         <text x="296" y="97" fill="var(--chalk)">~2×</text>
         <line x1="190" y1="36" x2="190" y2="110" stroke="var(--chalk-faint)" strokeDasharray="2 3" />
         <text x="190" y="124" textAnchor="middle" fill="var(--chalk-faint)" fontSize="10">midfield</text>
@@ -178,7 +183,7 @@ export function ImpactChart() {
           <g key={r.label}>
             <text x="0" y={y + 6} fontFamily={mono} fontSize="11" fill="var(--chalk)">{r.label}</text>
             <text x="0" y={y + 21} fontFamily={mono} fontSize="9" fill="var(--chalk-faint)">{r.sub}</text>
-            <rect x={x(0)} y={y - 4} width={x(r.v) - x(0)} height="16" rx="2" fill={r.c} opacity={i === 0 ? 1 : 0.75} />
+            <rect className="ch-bx" style={dl(i * 2)} x={x(0)} y={y - 4} width={x(r.v) - x(0)} height="16" rx="2" fill={r.c} opacity={i === 0 ? 1 : 0.75} />
             <text x={x(r.v) + 8} y={y + 8} fontFamily={mono} fontSize="11" fill="var(--chalk)">{r.sign}{r.v}%</text>
           </g>
         );
@@ -199,7 +204,7 @@ export function PointPipeline() {
   return (
     <svg viewBox="0 0 700 170" role="img" aria-label="Data flows from four sources through Python ETL into DuckDB and FastAPI, then to the React site">
       {boxes.map((b, i) => (
-        <g key={b.t}>
+        <g key={b.t} className="ch-pop" style={dl(i * 2)}>
           <rect x={b.x} y="10" width="154" height="150" rx="6" fill="var(--ground-3)" stroke={i === 1 ? "var(--lamp)" : "var(--rule-strong)"} />
           <text x={b.x + 14} y="36" fontFamily={mono} fontSize="12" fill="var(--lamp)">{b.t}</text>
           {b.s.map((line, j) => (
@@ -226,7 +231,7 @@ export function PerMl() {
       {rows.map((r, i) => (
         <g key={r.l}>
           <text x="0" y={34 + i * 44} fontFamily={mono} fontSize="11" fill="var(--chalk)">{r.l}</text>
-          <rect x="130" y={22 + i * 44} width={x(r.v) - 130} height="16" rx="2" fill={i === 0 ? "var(--rule-strong)" : "var(--turf)"} />
+          <rect className="ch-bx" style={dl(i * 2)} x="130" y={22 + i * 44} width={x(r.v) - 130} height="16" rx="2" fill={i === 0 ? "var(--rule-strong)" : "var(--turf)"} />
           <text x={x(r.v) + 8} y={34 + i * 44} fontFamily={mono} fontSize="11" fill="var(--chalk)">{(r.v * 100).toFixed(1)}¢/mL</text>
         </g>
       ))}
@@ -252,7 +257,7 @@ export function FinImportance() {
       {rows.map(([l, v], i) => (
         <g key={l}>
           <text x="0" y={22 + i * 28} fontFamily={mono} fontSize="10.5" fill="var(--chalk)">{l}</text>
-          <rect x="186" y={11 + i * 28} width={x(v) - 186} height="14" rx="2" fill={i < 2 ? "var(--lamp)" : "var(--turf)"} opacity={i < 2 ? 1 : 0.8} />
+          <rect className="ch-bx" style={dl(i)} x="186" y={11 + i * 28} width={x(v) - 186} height="14" rx="2" fill={i < 2 ? "var(--lamp)" : "var(--turf)"} opacity={i < 2 ? 1 : 0.8} />
           <text x={x(v) + 6} y={22 + i * 28} fontFamily={mono} fontSize="10.5" fill="var(--chalk-dim)">{v.toFixed(3)}</text>
         </g>
       ))}

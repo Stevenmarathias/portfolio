@@ -28,7 +28,7 @@ export default function Page() {
     >
       <Section title="The business">
         <p>Elaion is my family&apos;s olive oil: single-estate, certified organic extra virgin oil from century-old groves in Parapougi, outside Kalamata in Greece, pressed at a mill in the same village. It sells in two sizes.</p>
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <PerMl />
           <figcaption>The 750 mL bottle costs about 28% less per milliliter than the 250 mL, which makes the small bottle the trial size and the large one the repeat purchase.</figcaption>
         </figure>
@@ -55,7 +55,7 @@ export default function Page() {
             </tbody>
           </table>
         </div>
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <ElaionMeters rows={elaionLab} />
           <figcaption>Share of each extra virgin limit used; lower is better. Lab analysis by Baker Wine &amp; Grape Analysis. Acidity is the marker closest to its limit, which is why the marketing leads with freshness and polyphenols rather than acidity.</figcaption>
         </figure>

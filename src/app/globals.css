@@ -394,3 +394,32 @@ html.js .ws-item:not(.on) { opacity: .32; }
 .detail-links .detail-link { margin-top: 0; }
 .detail-link.quiet { color: var(--chalk-dim); }
 .detail-link.quiet:hover { color: var(--lamp); }
+
+/* ── chart motion: charts render at their final state; hidden only once JS is ready, then drawn on .play ── */
+.chart-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.chart-pair > * { min-width: 0; }
+@media (max-width: 760px) { .chart-pair { grid-template-columns: 1fr; gap: 18px; } }
+.chart-fig svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart-key { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 14px; font-family: var(--mono); font-size: .72rem; color: var(--chalk-dim); }
+.chart-key i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: -1px; }
+.ch-bx, .ch-by, .ch-cx, .ch-pop { transform-box: fill-box; }
+.ch-bx { transform-origin: left center; }
+.ch-by { transform-origin: center bottom; }
+.ch-cx { transform-origin: center center; }
+.ch-pop { transform-origin: center center; }
+.ch-draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+[data-chart] .ch-bx, [data-chart] .ch-by, [data-chart] .ch-cx { transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 90ms); }
+[data-chart] .ch-pop { transition: transform .55s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i, 0) * 90ms + 150ms), opacity .3s calc(var(--i, 0) * 90ms + 150ms); }
+[data-chart] .ch-draw { transition: stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--i, 0) * 90ms); }
+[data-chart] .ch-fade { transition: opacity .5s ease calc(var(--i, 0) * 90ms + 300ms); }
+html.js [data-chart]:not(.play) .ch-bx { transform: scaleX(0); }
+html.js [data-chart]:not(.play) .ch-by { transform: scaleY(0); }
+html.js [data-chart]:not(.play) .ch-cx { transform: scaleX(0); }
+html.js [data-chart]:not(.play) .ch-pop { transform: scale(0); opacity: 0; }
+html.js [data-chart]:not(.play) .ch-draw { stroke-dashoffset: 1; }
+html.js [data-chart]:not(.play) .ch-fade { opacity: 0; }
+[data-chart] .meter .fill { transform-origin: left center; transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+html.js [data-chart]:not(.play) .meter .fill { transform: scaleX(0); }
+@media (prefers-reduced-motion: reduce) {
+  [data-chart] .ch-bx, [data-chart] .ch-by, [data-chart] .ch-cx, [data-chart] .ch-pop, [data-chart] .ch-draw, [data-chart] .ch-fade, [data-chart] .meter .fill { transition: none; }
+}

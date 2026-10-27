@@ -41,7 +41,7 @@ export default function Page() {
       </Section>
 
       <Section title="Architecture">
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <PointPipeline />
           <figcaption>Python scrapers and derive scripts write to DuckDB. A FastAPI backend serves it to the React front end. The research stays in its own repository, and the site syncs a snapshot of its outputs.</figcaption>
         </figure>
@@ -53,7 +53,7 @@ export default function Page() {
 
       <Section title="The hard part: who started?">
         <p>Showing 22 starters for every game since 1999 sounds simple. No single free source covers every season, and the sources that exist disagree. I built a <strong>tiered resolver</strong>: each game takes its lineup from the most trustworthy source available, and every player card records which tier it came from.</p>
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <TierLadder />
           <figcaption>Lineup sources in priority order. Lineups rebuilt from play-by-play credits get a dashed border on the site, so a visitor can always tell a verified starter from an inferred one.</figcaption>
         </figure>
@@ -68,7 +68,7 @@ export default function Page() {
 
       <Section title="Making lineups look like football">
         <p>A list of 22 names isn&apos;t a lineup. The layout is fully data-driven: rows adapt to the real personnel (3-4, 4-3, nickel), receivers split out wide beside the line, and the quarterback and backs line up behind the center by construction. Unknown position codes route to the nearest group, and a small assignment step gives every player a distinct slot label without ever dropping one.</p>
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <Formation />
           <figcaption>Schematic of the formation layout. Each box is a clickable player card on the live site.</figcaption>
         </figure>
@@ -78,7 +78,7 @@ export default function Page() {
           <li><strong>Specialists in the wrong group.</strong> Reclassifying the &ldquo;H&rdquo; code as the holder on special teams fixed 99% of those cases.</li>
           <li><strong>Missing quarterbacks.</strong> Recovering them from play-by-play credits cut the gaps from 306 games to 26. The rest can&apos;t be recovered from the data, so they stay honestly blank.</li>
         </ul>
-        <figure className="figure">
+        <figure className="figure chart-fig" data-chart="">
           <ShapeFix />
           <figcaption>Games with a malformed starting lineup, before and after the position-aware pass.</figcaption>
         </figure>
