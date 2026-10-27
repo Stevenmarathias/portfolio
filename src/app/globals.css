@@ -323,7 +323,7 @@ details[open] > summary .tl-toggle::after { transform: rotate(0deg); }
 /* ── sticky-scroll work section ── */
 .ws { display: grid; grid-template-columns: 1fr 1.05fr; gap: 64px; }
 .ws > * { min-width: 0; }
-.ws-item { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; padding-block: 36px; transition: opacity .5s var(--ease); }
+.ws-item { min-height: 46vh; display: flex; flex-direction: column; justify-content: center; padding-block: 28px; transition: opacity .5s var(--ease); }
 html.js .ws-item:not(.on) { opacity: .32; }
 .ws-item h3 { margin: 0 0 14px; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 3.8vw, 3.2rem); line-height: .95; }
 .ws-item h3 a { color: var(--chalk); text-decoration: none; }

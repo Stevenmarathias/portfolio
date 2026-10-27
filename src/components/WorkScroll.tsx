@@ -45,7 +45,7 @@ export default function WorkScroll({ items }: { items: WorkItem[] }) {
           if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.index));
         });
       },
-      { rootMargin: "-45% 0px -45% 0px" }
+      { rootMargin: "-42% 0px -42% 0px" }
     );
     refs.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
