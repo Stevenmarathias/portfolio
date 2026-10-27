@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Nav from "@/components/Nav";
+import Dock from "@/components/Dock";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SmoothScroll from "@/components/block/smooth-scroll";
@@ -79,6 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Nav />
           <div id="main">{children}</div>
           <Footer />
+          <Dock />
         </SmoothScroll>
         <Reveal />
         <Analytics />
