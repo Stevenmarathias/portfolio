@@ -372,7 +372,7 @@ export default function Hero() {
         </div>
         <p className="status">
           <span className="live" aria-hidden="true" />
-          Open to analyst roles from January 2027 · New England or remote
+          Open to in-office, hybrid or remote analyst roles from January 2027
         </p>
       </div>
       <div className="hero-readout" ref={readoutRef} aria-hidden="true">
